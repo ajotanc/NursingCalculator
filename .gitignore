@@ -3,3 +3,4 @@ dev-dist
 dist
 build
 .biome
+dev-scripts

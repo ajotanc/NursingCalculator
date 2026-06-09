@@ -9,59 +9,59 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="totalVolume"
           label="Volume do Frasco (mL)"
-          type="number"
+         
           variant="outlined"
           suffix="mL"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="haveConcentration"
           label="Concentração Atual (%)"
-          type="number"
+         
           variant="outlined"
           suffix="%"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="wantConcentration"
           label="Concentração Desejada (%)"
-          type="number"
+         
           variant="outlined"
           suffix="%"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="ampouleConcentration"
           label="Concentração da Ampola (%)"
-          type="number"
+         
           variant="outlined"
           suffix="%"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12">
-        <v-text-field
+        <NumericInput
           v-model.number="ampouleVolume"
           label="Volume de 1 Ampola (mL)"
-          type="number"
+         
           variant="outlined"
           suffix="mL"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
     </v-row>
 
@@ -76,6 +76,10 @@
     </v-card>
 
     <div class="mt-6 text-end">
+      
+      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('SerumTransformation', `Transformação de Soro:\nSoro Base: ${totalVolume || 0}mL a ${haveConcentration || 0}%\nAlvo: a ${wantConcentration || 0}%\nAmpola: ${ampouleVolume || 0}mL a ${ampouleConcentration || 0}%\nAdicionar: ${resultAmpoules} ampolas (${resultVolume} mL)`)">
+        Copiar
+      </v-btn>
       <v-btn color="grey-darken-1" variant="text" @click="resetForm">
         Limpar Valores
       </v-btn>
@@ -84,13 +88,33 @@
 </template>
 
 <script setup lang="ts">
+import { useAppClipboard } from "@/composables/useAppClipboard";
+
+const { copyToClipboard } = useAppClipboard();
+
+import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const totalVolume = ref<number | null>(null);
-const haveConcentration = ref<number | null>(null);
-const wantConcentration = ref<number | null>(null);
-const ampouleConcentration = ref<number | null>(null);
-const ampouleVolume = ref<number | null>(null);
+const totalVolume = useLocalStorage<number | null>(
+	"nc-SerumTransformation-totalVolume",
+	null,
+);
+const haveConcentration = useLocalStorage<number | null>(
+	"nc-SerumTransformation-haveConcentration",
+	null,
+);
+const wantConcentration = useLocalStorage<number | null>(
+	"nc-SerumTransformation-wantConcentration",
+	null,
+);
+const ampouleConcentration = useLocalStorage<number | null>(
+	"nc-SerumTransformation-ampouleConcentration",
+	null,
+);
+const ampouleVolume = useLocalStorage<number | null>(
+	"nc-SerumTransformation-ampouleVolume",
+	null,
+);
 
 const resetForm = (): void => {
 	totalVolume.value = null;

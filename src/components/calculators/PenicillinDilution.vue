@@ -19,26 +19,26 @@
         ></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="diluent"
           label="Solvente/Água Adicionada (mL)"
-          type="number"
+         
           variant="outlined"
           suffix="mL"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12">
-        <v-text-field
+        <NumericInput
           v-model.number="prescription"
           label="Prescrição Médica (UI)"
-          type="number"
+         
           variant="outlined"
           suffix="UI"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
     </v-row>
 
@@ -53,6 +53,10 @@
     </v-card>
 
     <div class="mt-6 text-end">
+      
+      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('PenicillinDilution', `Diluição de Penicilina:\nFrasco: ${presentation} UI\nPrescrição: ${prescription || 0} UI\nAdministrar: ${resultVolume} mL`)">
+        Copiar
+      </v-btn>
       <v-btn color="grey-darken-1" variant="text" @click="resetForm">
         Limpar Valores
       </v-btn>
@@ -61,11 +65,25 @@
 </template>
 
 <script setup lang="ts">
+import { useAppClipboard } from "@/composables/useAppClipboard";
+
+const { copyToClipboard } = useAppClipboard();
+
+import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const presentation = ref<number>(5000000);
-const diluent = ref<number | null>(8);
-const prescription = ref<number | null>(null);
+const presentation = useLocalStorage<number>(
+	"nc-PenicillinDilution-presentation",
+	5000000,
+);
+const diluent = useLocalStorage<number | null>(
+	"nc-PenicillinDilution-diluent",
+	8,
+);
+const prescription = useLocalStorage<number | null>(
+	"nc-PenicillinDilution-prescription",
+	null,
+);
 
 const resetForm = (): void => {
 	presentation.value = 5000000;

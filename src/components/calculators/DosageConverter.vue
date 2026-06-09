@@ -9,37 +9,37 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="haveDose"
           label="Apresentação (Temos)"
-          type="number"
+         
           variant="outlined"
           suffix="mg"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
+        <NumericInput
           v-model.number="haveVolume"
           label="Diluído em (Volume)"
-          type="number"
+         
           variant="outlined"
           suffix="mL"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12">
-        <v-text-field
+        <NumericInput
           v-model.number="needDose"
           label="Prescrição (Médico pede)"
-          type="number"
+         
           variant="outlined"
           suffix="mg"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
     </v-row>
 
@@ -54,6 +54,10 @@
     </v-card>
 
     <div class="mt-6 text-end">
+      
+      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('DosageConverter', `Regra de Três:\nPrescrito: ${haveDose || 0}mg -> Diluído em: ${haveVolume || 0}mL\nDose Alvo: ${needDose || 0}mg -> Administrar: ${resultVolume} mL`)" class="mr-4">
+        Copiar
+      </v-btn>
       <v-btn color="grey-darken-1" variant="text" @click="resetForm">
         Limpar Valores
       </v-btn>
@@ -62,11 +66,25 @@
 </template>
 
 <script setup lang="ts">
+import { useAppClipboard } from "@/composables/useAppClipboard";
+
+const { copyToClipboard } = useAppClipboard();
+
+import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const haveDose = ref<number | null>(null);
-const haveVolume = ref<number | null>(null);
-const needDose = ref<number | null>(null);
+const haveDose = useLocalStorage<number | null>(
+	"nc-DosageConverter-haveDose",
+	null,
+);
+const haveVolume = useLocalStorage<number | null>(
+	"nc-DosageConverter-haveVolume",
+	null,
+);
+const needDose = useLocalStorage<number | null>(
+	"nc-DosageConverter-needDose",
+	null,
+);
 
 const resetForm = (): void => {
 	haveDose.value = null;

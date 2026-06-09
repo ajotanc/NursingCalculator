@@ -7,16 +7,16 @@
       O resultado baseia-se em um protocolo padrão genérico. Verifique a prescrição do seu hospital.
     </v-alert>
 
-    <v-text-field
+    <NumericInput
       v-model.number="hgt"
       label="Glicemia Capilar (HGT)"
-      type="number"
+     
       variant="outlined"
       suffix="mg/dL"
       min="0"
       hide-details="auto"
       class="mb-6"
-    ></v-text-field>
+    ></NumericInput>
 
     <v-card color="teal-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
       <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">Dose Indicada</div>
@@ -25,13 +25,23 @@
       </div>
       <div class="text-subtitle-1 text-teal-darken-3">Unidades de Insulina Regular</div>
     </v-card>
+    <div class="mt-6 text-end">
+      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('InsulinScale', `Escala de Insulina:\nGlicemia: ${hgt || 0} mg/dL\nAdministrar: ${insulinUnits} UI`)">
+        Copiar
+      </v-btn>
+    </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
+import { useAppClipboard } from "@/composables/useAppClipboard";
+
+const { copyToClipboard } = useAppClipboard();
+
+import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const hgt = ref<number | null>(null);
+const hgt = useLocalStorage<number | null>("nc-InsulinScale-hgt", null);
 
 const insulinUnits = computed<string>(() => {
 	const val = hgt.value ?? 0;

@@ -9,41 +9,45 @@
 
     <v-row>
       <v-col cols="12" md="4">
-        <v-text-field
+        <NumericInput
           v-model.number="volume"
           label="Volume Total (mL)"
-          type="number"
+         
           variant="outlined"
           suffix="mL"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <v-text-field
+        <NumericInput
           v-model.number="hours"
           label="Tempo (Horas)"
-          type="number"
+         
           variant="outlined"
           suffix="h"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <v-text-field
+        <NumericInput
           v-model.number="minutes"
           label="Tempo (Minutos)"
-          type="number"
+         
           variant="outlined"
           suffix="min"
           min="0"
           hide-details="auto"
-        ></v-text-field>
+        ></NumericInput>
       </v-col>
     </v-row>
 
     <v-divider class="my-6"></v-divider>
+
+    <v-alert v-if="Number(dropsResult) > 150" type="warning" variant="tonal" class="mb-4 text-start font-weight-bold" icon="mdi-alert">
+      Atenção: Gotejamento extremamente rápido (> 150 gotas/min). Isso equivale a uma infusão em "bolus" ou fluxo livre. Confirme a prescrição médica.
+    </v-alert>
 
     <v-row>
       <v-col cols="12" sm="6">
@@ -67,6 +71,10 @@
     </v-row>
 
     <div class="mt-6 text-end">
+      
+      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('DripRate', `Gotejamento Padrão:\nVolume: ${volume || 0}mL em ${Number(totalTimeInHours || 0).toFixed(1)}h\nVazão: ${dropsResult} macrogotas/min OU ${microDropsResult} microgotas/min`)">
+        Copiar
+      </v-btn>
       <v-btn color="grey-darken-1" variant="text" @click="resetForm">
         Limpar Valores
       </v-btn>
@@ -75,11 +83,16 @@
 </template>
 
 <script setup lang="ts">
+import { useAppClipboard } from "@/composables/useAppClipboard";
+
+const { copyToClipboard } = useAppClipboard();
+
+import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const volume = ref<number | null>(null);
-const hours = ref<number | null>(null);
-const minutes = ref<number | null>(null);
+const volume = useLocalStorage<number | null>("nc-DripRate-volume", null);
+const hours = useLocalStorage<number | null>("nc-DripRate-hours", null);
+const minutes = useLocalStorage<number | null>("nc-DripRate-minutes", null);
 
 const resetForm = (): void => {
 	volume.value = null;
