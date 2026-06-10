@@ -33,8 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
+import { nextTick, onMounted, ref } from 'vue';
 
 const props = defineProps<{
   client?: string;
@@ -45,15 +44,17 @@ const adLoaded = ref(false);
 
 onMounted(() => {
   if (props.client && props.slotId) {
-    try {
-      // @ts-expect-error - adsbygoogle is injected by google script
-      window.adsbygoogle = window.adsbygoogle || [];
-      // @ts-expect-error
-      window.adsbygoogle.push({});
-      adLoaded.value = true;
-    } catch (e) {
-      console.error('AdSense initialization error:', e);
-    }
+    nextTick(() => {
+      try {
+        // @ts-expect-error - adsbygoogle is injected by google script
+        window.adsbygoogle = window.adsbygoogle || [];
+        // @ts-expect-error
+        window.adsbygoogle.push({});
+        adLoaded.value = true;
+      } catch (e) {
+        console.error('AdSense initialization error:', e);
+      }
+    });
   }
 });
 </script>
