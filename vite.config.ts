@@ -30,6 +30,15 @@ export default defineConfig(({ mode }) => {
           ],
         },
       }),
+      {
+        name: 'remove-font-preloads',
+        transformIndexHtml(html) {
+          return html.replace(
+            /<link[^>]+rel=["']preload["'][^>]+as=["']font["'][^>]*\/?>/gi,
+            ''
+          );
+        },
+      },
       VitePWA({
         registerType: "autoUpdate",
         injectRegister: "auto",

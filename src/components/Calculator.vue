@@ -60,8 +60,6 @@
       </v-list>
 
       <div class="mt-auto">
-        <AdBanner client="ca-pub-6909689347418845" slotId="5424450169" />
-        <v-divider />
         <div class="pa-4 text-center">
           <div class="d-flex justify-center align-center ga-2 mb-1">
             <v-btn icon="mdi-linkedin" variant="text" size="small" color="primary"
@@ -307,7 +305,6 @@ import dayjs from "dayjs";
 import { computed, onMounted, ref, watch } from "vue";
 import type { FilterFunction, InternalItem } from "vuetify";
 import { useTheme } from "vuetify";
-import AdBanner from "@/components/AdBanner.vue";
 import BradenScale from "@/components/calculators/BradenScale.vue";
 import ClinicalEvaluation from "@/components/calculators/ClinicalEvaluation.vue";
 import DosageConverter from "@/components/calculators/DosageConverter.vue";
