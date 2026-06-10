@@ -128,7 +128,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 import { useHaptics } from "@/composables/useHaptics";
-import { useHistory } from "@/composables/useHistory";
+import { type HistoryItem, useHistory } from "@/composables/useHistory";
 import { APP_NAME } from "@/utils/config";
 
 const { history, clearHistory, deleteItem } = useHistory();
@@ -182,7 +182,16 @@ const copyAllHistory = () => {
 
 	const allText = history.value
 		.map((item) => {
-			return `[${formatTimestamp(item.timestamp)}] ${getHumanReadableName(item.calculatorName)}\n${item.text}`;
+			const header = `[${formatTimestamp(item.timestamp)}] ${getHumanReadableName(item.calculatorName)}`;
+
+			let patient = "";
+			if (item.patientName) {
+				patient = item.patientVitals
+					? `\nPaciente/Leito: ${item.patientName} (${item.patientVitals})`
+					: `\nPaciente/Leito: ${item.patientName}`;
+			}
+
+			return `${header}${patient}\n${formatBodyText(item.text)}`;
 		})
 		.join("\n\n--------------------------------\n\n");
 
@@ -203,7 +212,11 @@ const generatePDF = () => {
 	if (history.value.length === 0) return;
 	vibrateSuccess();
 
-	const doc = new jsPDF();
+	const doc = new jsPDF({
+		orientation: "landscape",
+		unit: "mm",
+		format: "a4",
+	});
 
 	doc.setFontSize(18);
 	doc.text("Histórico de Plantão - Nursing Calculator", 14, 22);
@@ -212,16 +225,22 @@ const generatePDF = () => {
 	doc.setTextColor(100);
 	doc.text(`Gerado em: ${dayjs().format("DD/MM/YYYY HH:mm")}`, 14, 30);
 
-	const tableData = history.value.map((item) => [
-		formatTimestamp(item.timestamp),
-		item.patientName || "-",
-		getHumanReadableName(item.calculatorName),
-		formatBodyText(item.text).replace(/\n/g, "  |  "),
-	]);
+	const tableData = history.value.map((item: HistoryItem) => {
+		const bed = item.patientName || "-";
+		const vitals = item.patientVitals || "-";
+
+		return [
+			formatTimestamp(item.timestamp),
+			bed,
+			vitals,
+			getHumanReadableName(item.calculatorName),
+			formatBodyText(item.text).replace(/\n/g, "  |  "),
+		];
+	});
 
 	autoTable(doc, {
 		startY: 36,
-		head: [["Data/Hora", "Leito", "Calculadora", "Resultado"]],
+		head: [["Data/Hora", "Leito", "Sinais Vitais", "Calculadora", "Resultado"]],
 		body: tableData,
 		theme: "grid",
 		headStyles: { fillColor: [24, 126, 177] },

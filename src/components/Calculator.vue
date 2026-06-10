@@ -60,6 +60,9 @@
       </v-list>
 
       <template v-slot:append>
+        <div class="px-2 pb-2">
+          <AdBanner />
+        </div>
         <v-divider></v-divider>
         <div class="pa-4 text-center">
           <div class="d-flex justify-center align-center ga-2 mb-1">
@@ -127,6 +130,21 @@
               <v-col cols="6">
                 <NumericInput v-model.number="newBed.height" label="Altura" suffix="cm" variant="outlined"
                   density="compact" hide-details></NumericInput>
+              </v-col>
+              <v-col cols="6" sm="4">
+                <v-text-field v-model="newBed.pa" label="PA" placeholder="120x80" suffix="mmHg" variant="outlined" density="compact" hide-details></v-text-field>
+              </v-col>
+              <v-col cols="6" sm="4">
+                <NumericInput v-model.number="newBed.fc" label="FC" suffix="bpm" variant="outlined" density="compact" hide-details></NumericInput>
+              </v-col>
+              <v-col cols="6" sm="4">
+                <NumericInput v-model.number="newBed.fr" label="FR" suffix="irpm" variant="outlined" density="compact" hide-details></NumericInput>
+              </v-col>
+              <v-col cols="6" sm="6">
+                <NumericInput v-model.number="newBed.temp" label="Tax" suffix="°C" variant="outlined" density="compact" hide-details></NumericInput>
+              </v-col>
+              <v-col cols="6" sm="6">
+                <NumericInput v-model.number="newBed.spO2" label="SpO2" suffix="%" variant="outlined" density="compact" hide-details></NumericInput>
               </v-col>
               <v-col cols="12" class="text-right mt-2">
                 <v-btn v-if="editBedId" color="grey" variant="text" @click="cancelEdit" class="mr-2">Cancelar</v-btn>

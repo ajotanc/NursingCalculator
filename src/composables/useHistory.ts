@@ -7,6 +7,7 @@ export interface HistoryItem {
 	text: string;
 	timestamp: number;
 	patientName?: string;
+	patientVitals?: string;
 }
 
 export const useHistory = () => {
@@ -26,6 +27,7 @@ export const useHistory = () => {
 		calculatorName: string,
 		text: string,
 		patientName?: string,
+		patientVitals?: string,
 	) => {
 		cleanupHistory();
 		history.value.unshift({
@@ -34,6 +36,7 @@ export const useHistory = () => {
 			text,
 			timestamp: dayjs().valueOf(),
 			patientName,
+			patientVitals,
 		});
 	};
 

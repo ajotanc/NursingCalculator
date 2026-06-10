@@ -6,6 +6,11 @@ export interface PatientProfile {
 	name: string;
 	weight: number | null;
 	height: number | null;
+	fc?: number | null;
+	pa?: string | null;
+	fr?: number | null;
+	temp?: number | null;
+	spO2?: number | null;
 }
 
 export const usePatient = () => {
@@ -26,13 +31,30 @@ export const usePatient = () => {
 		return active || { id: "", name: "", weight: null, height: null };
 	});
 
-	const hasPatientData = computed(() => {
-		return (
-			currentPatient.value.weight !== null ||
-			currentPatient.value.height !== null ||
-			currentPatient.value.name !== ""
-		);
-	});
+	const formatPatientVitals = (patient: PatientProfile | null) => {
+		if (!patient) return "";
+
+		const vitals = [];
+		if (patient.pa) vitals.push(`PA: ${patient.pa}`);
+		if (patient.fc) vitals.push(`FC: ${patient.fc}`);
+		if (patient.fr) vitals.push(`FR: ${patient.fr}`);
+		if (patient.temp) vitals.push(`Tax: ${patient.temp}°C`);
+		if (patient.spO2) vitals.push(`SpO2: ${patient.spO2}%`);
+
+		return vitals.join(", ");
+	};
+
+	const getPatientName = () => {
+		return currentPatient.value?.name || "";
+	};
+
+	const getPatientParam = <K extends keyof PatientProfile>(
+		key: K,
+	): PatientProfile[K] | null => {
+		return currentPatient.value ? currentPatient.value[key] : null;
+	};
+
+	const hasPatientData = computed(() => activePatientId.value !== null);
 
 	const addPatient = (patient: Omit<PatientProfile, "id">) => {
 		const newPatient = { ...patient, id: crypto.randomUUID() };
@@ -71,5 +93,8 @@ export const usePatient = () => {
 		updatePatient,
 		deletePatient,
 		setActivePatient,
+		formatPatientVitals,
+		getPatientName,
+		getPatientParam,
 	};
 };

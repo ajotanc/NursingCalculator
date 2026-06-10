@@ -10,7 +10,7 @@ const snackbarText = ref("");
 export const useAppClipboard = () => {
 	const { copy, isSupported } = useClipboard();
 	const { addToHistory } = useHistory();
-	const { currentPatient } = usePatient();
+	const { currentPatient, formatPatientVitals, getPatientName } = usePatient();
 
 	const copyToClipboard = async (calculatorName: string, text: string) => {
 		if (!isSupported.value) {
@@ -20,8 +20,20 @@ export const useAppClipboard = () => {
 		}
 
 		try {
-			await copy(text);
-			addToHistory(calculatorName, text, currentPatient.value?.name);
+			const name = getPatientName();
+			const vitals = formatPatientVitals(currentPatient.value);
+
+			let header = "";
+			if (name) {
+				header = vitals
+					? `Paciente/Leito: ${name} (${vitals})`
+					: `Paciente/Leito: ${name}`;
+			}
+
+			const finalText = header ? `${header}\n${text}` : text;
+
+			await copy(finalText);
+			addToHistory(calculatorName, text, name, vitals);
 
 			snackbarText.value = "Copiado para o prontuário!";
 			showSnackbar.value = true;
