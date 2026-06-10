@@ -102,7 +102,7 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 4000,
       modulePreload: {
         resolveDependencies: (_filename, deps) => {
-          return deps.filter(dep => !dep.match(/\.(woff2?|eot|ttf|otf)$/i));
+          return deps.filter(dep => !dep.match(/\.(woff2?|eot|ttf|otf)(\?.*)?$/i));
         },
       },
       rollupOptions: {

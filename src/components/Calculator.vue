@@ -59,11 +59,9 @@
           @click="showDisclaimer = true"></v-list-item>
       </v-list>
 
-      <template v-slot:append>
-        <div class="px-2 pb-2">
-          <AdBanner client="ca-pub-6909689347418845" slotId="5424450169" />
-        </div>
-        <v-divider></v-divider>
+      <div class="mt-auto">
+        <AdBanner client="ca-pub-6909689347418845" slotId="5424450169" />
+        <v-divider />
         <div class="pa-4 text-center">
           <div class="d-flex justify-center align-center ga-2 mb-1">
             <v-btn icon="mdi-linkedin" variant="text" size="small" color="primary"
@@ -77,7 +75,7 @@
             AJOTA &copy; {{ dayjs().format("YYYY") }}. All rights reserved.
           </div>
         </div>
-      </template>
+      </div>
     </v-navigation-drawer>
 
     <v-dialog v-model="showDisclaimer" max-width="500">
@@ -132,19 +130,24 @@
                   density="compact" hide-details></NumericInput>
               </v-col>
               <v-col cols="6" sm="4">
-                <v-text-field v-model="newBed.pa" label="PA" placeholder="120x80" suffix="mmHg" variant="outlined" density="compact" hide-details></v-text-field>
+                <v-text-field v-model="newBed.pa" label="PA" placeholder="120x80" suffix="mmHg" variant="outlined"
+                  density="compact" hide-details></v-text-field>
               </v-col>
               <v-col cols="6" sm="4">
-                <NumericInput v-model.number="newBed.fc" label="FC" suffix="bpm" variant="outlined" density="compact" hide-details></NumericInput>
+                <NumericInput v-model.number="newBed.fc" label="FC" suffix="bpm" variant="outlined" density="compact"
+                  hide-details></NumericInput>
               </v-col>
               <v-col cols="6" sm="4">
-                <NumericInput v-model.number="newBed.fr" label="FR" suffix="irpm" variant="outlined" density="compact" hide-details></NumericInput>
+                <NumericInput v-model.number="newBed.fr" label="FR" suffix="irpm" variant="outlined" density="compact"
+                  hide-details></NumericInput>
               </v-col>
               <v-col cols="6" sm="6">
-                <NumericInput v-model.number="newBed.temp" label="Tax" suffix="°C" variant="outlined" density="compact" hide-details></NumericInput>
+                <NumericInput v-model.number="newBed.temp" label="Tax" suffix="°C" variant="outlined" density="compact"
+                  hide-details></NumericInput>
               </v-col>
               <v-col cols="6" sm="6">
-                <NumericInput v-model.number="newBed.spO2" label="SpO2" suffix="%" variant="outlined" density="compact" hide-details></NumericInput>
+                <NumericInput v-model.number="newBed.spO2" label="SpO2" suffix="%" variant="outlined" density="compact"
+                  hide-details></NumericInput>
               </v-col>
               <v-col cols="12" class="text-right mt-2">
                 <v-btn v-if="editBedId" color="grey" variant="text" @click="cancelEdit" class="mr-2">Cancelar</v-btn>
@@ -335,14 +338,14 @@ import ParklandFormula from "./calculators/ParklandFormula.vue";
 
 const { showSnackbar, snackbarText } = useAppClipboard();
 const {
-	currentPatient,
-	hasPatientData,
-	patientsList,
-	activePatientId,
-	addPatient,
-	updatePatient,
-	deletePatient,
-	setActivePatient,
+  currentPatient,
+  hasPatientData,
+  patientsList,
+  activePatientId,
+  addPatient,
+  updatePatient,
+  deletePatient,
+  setActivePatient,
 } = usePatient();
 
 const showDisclaimer = ref(false);
@@ -354,170 +357,170 @@ const editBedId = ref<string | null>(null);
 const newBed = ref<PatientProfile>({} as PatientProfile);
 
 const editPatient = (p: PatientProfile) => {
-	editBedId.value = p.id;
-	newBed.value = p;
+  editBedId.value = p.id;
+  newBed.value = p;
 };
 
 const cancelEdit = () => {
-	editBedId.value = null;
-	newBed.value = {} as PatientProfile;
+  editBedId.value = null;
+  newBed.value = {} as PatientProfile;
 };
 
 const saveNewBed = () => {
-	if (!newBed.value.name) return;
-	if (editBedId.value) {
-		updatePatient(editBedId.value, newBed.value);
-	} else {
-		addPatient({ ...newBed.value });
-	}
-	cancelEdit();
+  if (!newBed.value.name) return;
+  if (editBedId.value) {
+    updatePatient(editBedId.value, newBed.value);
+  } else {
+    addPatient({ ...newBed.value });
+  }
+  cancelEdit();
 };
 
 interface CalculatorItem {
-	value: string;
-	title: string;
-	group: string;
+  value: string;
+  title: string;
+  group: string;
 }
 
 interface CalculatorCategory {
-	name: string;
-	icon: string;
-	items: { value: string; title: string }[];
+  name: string;
+  icon: string;
+  items: { value: string; title: string }[];
 }
 
 const calculatorCategories: CalculatorCategory[] = [
-	{
-		name: "Alta Vigilância",
-		icon: "mdi-alert",
-		items: [
-			{ value: "mav", title: "MAVs" },
-			{ value: "vasoactive", title: "Drogas Vasoativas" },
-		],
-	},
-	{
-		name: "Infusões",
-		icon: "mdi-water",
-		items: [
-			{ value: "drip", title: "Gotejamento" },
-			{ value: "bic", title: "Bomba de Infusão (BIC)" },
-			{ value: "infusiontime", title: "Término de Infusão" },
-		],
-	},
-	{
-		name: "Diluições",
-		icon: "mdi-needle",
-		items: [
-			{ value: "rule3", title: "Regra de Três" },
-			{ value: "serum", title: "Transformação de Soro" },
-			{ value: "penicillin", title: "Diluição de Penicilina" },
-			{ value: "electrolytes", title: "Reposição de Eletrólitos" },
-		],
-	},
-	{
-		name: "Clínica & Avaliação",
-		icon: "mdi-clipboard-pulse",
-		items: [
-			{ value: "clinical", title: "IMC e Superfície Corporal" },
-			{ value: "glasgow", title: "Escala de Glasgow" },
-			{ value: "braden", title: "Escala de Braden" },
-			{ value: "morse", title: "Escala de Morse" },
-			{ value: "waterbalance", title: "Balanço Hídrico" },
-			{ value: "earlywarning", title: "Escala MEWS" },
-			{ value: "insulin", title: "Escala de Insulina" },
-		],
-	},
-	{
-		name: "Ginecologia & Obstetrícia",
-		icon: "mdi-baby-buggy",
-		items: [
-			{ value: "gestational", title: "Idade Gestacional e DPP" },
-			{ value: "apgar", title: "Índice de APGAR" },
-		],
-	},
-	{
-		name: "Emergência & Trauma",
-		icon: "mdi-fire",
-		items: [{ value: "parkland", title: "Fórmula de Parkland" }],
-	},
-	{
-		name: "Pediatria",
-		icon: "mdi-baby-face-outline",
-		items: [{ value: "pediatric", title: "Dose por Peso (mg/kg)" }],
-	},
-	{
-		name: "Guias Rápidos",
-		icon: "mdi-book-open-variant",
-		items: [{ value: "ysite", title: "Compatibilidade em Y" }],
-	},
+  {
+    name: "Alta Vigilância",
+    icon: "mdi-alert",
+    items: [
+      { value: "mav", title: "MAVs" },
+      { value: "vasoactive", title: "Drogas Vasoativas" },
+    ],
+  },
+  {
+    name: "Infusões",
+    icon: "mdi-water",
+    items: [
+      { value: "drip", title: "Gotejamento" },
+      { value: "bic", title: "Bomba de Infusão (BIC)" },
+      { value: "infusiontime", title: "Término de Infusão" },
+    ],
+  },
+  {
+    name: "Diluições",
+    icon: "mdi-needle",
+    items: [
+      { value: "rule3", title: "Regra de Três" },
+      { value: "serum", title: "Transformação de Soro" },
+      { value: "penicillin", title: "Diluição de Penicilina" },
+      { value: "electrolytes", title: "Reposição de Eletrólitos" },
+    ],
+  },
+  {
+    name: "Clínica & Avaliação",
+    icon: "mdi-clipboard-pulse",
+    items: [
+      { value: "clinical", title: "IMC e Superfície Corporal" },
+      { value: "glasgow", title: "Escala de Glasgow" },
+      { value: "braden", title: "Escala de Braden" },
+      { value: "morse", title: "Escala de Morse" },
+      { value: "waterbalance", title: "Balanço Hídrico" },
+      { value: "earlywarning", title: "Escala MEWS" },
+      { value: "insulin", title: "Escala de Insulina" },
+    ],
+  },
+  {
+    name: "Ginecologia & Obstetrícia",
+    icon: "mdi-baby-buggy",
+    items: [
+      { value: "gestational", title: "Idade Gestacional e DPP" },
+      { value: "apgar", title: "Índice de APGAR" },
+    ],
+  },
+  {
+    name: "Emergência & Trauma",
+    icon: "mdi-fire",
+    items: [{ value: "parkland", title: "Fórmula de Parkland" }],
+  },
+  {
+    name: "Pediatria",
+    icon: "mdi-baby-face-outline",
+    items: [{ value: "pediatric", title: "Dose por Peso (mg/kg)" }],
+  },
+  {
+    name: "Guias Rápidos",
+    icon: "mdi-book-open-variant",
+    items: [{ value: "ysite", title: "Compatibilidade em Y" }],
+  },
 ];
 
 const searchQuery = ref(null);
 const calculatorsList = computed<CalculatorItem[]>(() => {
-	return calculatorCategories.flatMap((cat) =>
-		cat.items.map((item) => ({
-			value: item.value,
-			title: item.title,
-			group: cat.name,
-		})),
-	);
+  return calculatorCategories.flatMap((cat) =>
+    cat.items.map((item) => ({
+      value: item.value,
+      title: item.title,
+      group: cat.name,
+    })),
+  );
 });
 
 const getItemProps = (item: CalculatorItem) => {
-	return {
-		subtitle: item.group,
-	};
+  return {
+    subtitle: item.group,
+  };
 };
 
 const searchFilter: FilterFunction = (_value, query, item) => {
-	if (!query) return true;
-	if (!item) return false;
+  if (!query) return true;
+  if (!item) return false;
 
-	const q = query.toLowerCase();
-	const rawItem = item.raw as CalculatorItem;
+  const q = query.toLowerCase();
+  const rawItem = item.raw as CalculatorItem;
 
-	const t = rawItem.title.toLowerCase();
-	const g = rawItem.group.toLowerCase();
+  const t = rawItem.title.toLowerCase();
+  const g = rawItem.group.toLowerCase();
 
-	// Custom keywords for search
-	const keywordsMap: Record<string, string> = {
-		vasoactive: "nora noradrenalina dobuta dobutamina nipride vasoativa",
-		drip: "gota macrogota microgota",
-		rule3: "regra de tres proporcao",
-		clinical: "imc bmi superficie corporal mosteller",
-		earlywarning: "mews alerta",
-	};
-	const k = keywordsMap[rawItem.value] ?? "";
+  // Custom keywords for search
+  const keywordsMap: Record<string, string> = {
+    vasoactive: "nora noradrenalina dobuta dobutamina nipride vasoativa",
+    drip: "gota macrogota microgota",
+    rule3: "regra de tres proporcao",
+    clinical: "imc bmi superficie corporal mosteller",
+    earlywarning: "mews alerta",
+  };
+  const k = keywordsMap[rawItem.value] ?? "";
 
-	return t.includes(q) || g.includes(q) || k.includes(q);
+  return t.includes(q) || g.includes(q) || k.includes(q);
 };
 
 const onSearchSelect = (val: string | null) => {
-	if (val) {
-		selectTab(val);
-		drawer.value = false;
-		// Pequeno atraso para não piscar a busca
-		setTimeout(() => {
-			searchQuery.value = null;
-		}, 200);
-	}
+  if (val) {
+    selectTab(val);
+    drawer.value = false;
+    // Pequeno atraso para não piscar a busca
+    setTimeout(() => {
+      searchQuery.value = null;
+    }, 200);
+  }
 };
 
 watch(openedGroups, (newVal) => {
-	if (newVal.length > 1) {
-		openedGroups.value = [newVal[newVal.length - 1]];
-	}
+  if (newVal.length > 1) {
+    openedGroups.value = [newVal[newVal.length - 1]];
+  }
 });
 
 const theme = useTheme();
 const isDark = useLocalStorage("nc-dark-mode", false);
 
 onMounted(() => {
-	theme.change(isDark.value ? "dark" : "light");
+  theme.change(isDark.value ? "dark" : "light");
 });
 
 const toggleTheme = () => {
-	isDark.value = !isDark.value;
-	theme.change(isDark.value ? "dark" : "light");
+  isDark.value = !isDark.value;
+  theme.change(isDark.value ? "dark" : "light");
 };
 </script>
 

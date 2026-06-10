@@ -1,5 +1,5 @@
 <template>
-  <div class="ad-banner-container rounded overflow-hidden mx-2 my-2">
+  <div class="ad-banner-container border-sm border-dashed overflow-hidden mx-3">
     <!-- Placeholder visível enquanto não temos o código oficial do AdSense -->
     <v-card 
       v-if="!adLoaded"
@@ -63,7 +63,7 @@ onMounted(() => {
 .ad-banner-container {
   width: auto;
   position: relative;
-  border: 1px dashed rgba(var(--v-theme-primary), 0.3);
-  background: rgba(var(--v-theme-primary), 0.03);
+  border-color: #187eb1;
 }
 </style>
+
