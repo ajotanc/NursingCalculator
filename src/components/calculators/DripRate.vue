@@ -9,49 +9,30 @@
 
     <v-row>
       <v-col cols="12" md="4">
-        <NumericInput
-          v-model.number="volume"
-          label="Volume Total (mL)"
-         
-          variant="outlined"
-          suffix="mL"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="volume" label="Volume Total (mL)" variant="outlined" suffix="mL" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <NumericInput
-          v-model.number="hours"
-          label="Tempo (Horas)"
-         
-          variant="outlined"
-          suffix="h"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="hours" label="Tempo (Horas)" variant="outlined" suffix="h" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <NumericInput
-          v-model.number="minutes"
-          label="Tempo (Minutos)"
-         
-          variant="outlined"
-          suffix="min"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="minutes" label="Tempo (Minutos)" variant="outlined" suffix="min" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
     </v-row>
 
     <v-divider class="my-6"></v-divider>
 
-    <v-alert v-if="Number(dropsResult) > 150" type="warning" variant="tonal" class="mb-4 text-start font-weight-bold" icon="mdi-alert">
-      Atenção: Gotejamento extremamente rápido (> 150 gotas/min). Isso equivale a uma infusão em "bolus" ou fluxo livre. Confirme a prescrição médica.
+    <v-alert v-if="Number(dropsResult) > 150" type="warning" variant="tonal" class="mb-4 text-start font-weight-bold"
+      icon="mdi-alert">
+      Atenção: Gotejamento extremamente rápido (> 150 gotas/min). Isso equivale a uma infusão em "bolus" ou fluxo livre.
+      Confirme a prescrição médica.
     </v-alert>
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Macrogotas</div>
           <div class="text-h3 font-weight-black text-primary-darken-2 my-2">
             {{ dropsResult }}
@@ -60,7 +41,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="blue-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="blue-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-blue-darken-3 text-uppercase">Microgotas</div>
           <div class="text-h3 font-weight-black text-blue-darken-4 my-2">
             {{ microDropsResult }}
@@ -70,7 +51,9 @@
       </v-col>
     </v-row>
 
-    <CalculatorActions @copy="copyToClipboard('DripRate', `Gotejamento Padrão:\nVolume: ${volume || 0}mL em ${Number(totalTimeInHours || 0).toFixed(1)}h\nVazão: ${dropsResult} macrogotas/min OU ${microDropsResult} microgotas/min`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('DripRate', `Gotejamento Padrão:\nVolume: ${volume || 0}mL em ${Number(totalTimeInHours || 0).toFixed(1)}h\nVazão: ${dropsResult} macrogotas/min OU ${microDropsResult} microgotas/min`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 

@@ -9,43 +9,22 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="haveDose"
-          label="Apresentação (Temos)"
-         
-          variant="outlined"
-          suffix="mg"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="haveDose" label="Apresentação (Temos)" variant="outlined" suffix="mg" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="haveVolume"
-          label="Diluído em (Volume)"
-         
-          variant="outlined"
-          suffix="mL"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="haveVolume" label="Diluído em (Volume)" variant="outlined" suffix="mL" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12">
-        <NumericInput
-          v-model.number="needDose"
-          label="Prescrição (Médico pede)"
-         
-          variant="outlined"
-          suffix="mg"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="needDose" label="Prescrição (Médico pede)" variant="outlined" suffix="mg" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
     </v-row>
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded" elevation="0">
       <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Você deve aspirar</div>
       <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ resultVolume }}
@@ -53,7 +32,9 @@
       <div class="text-subtitle-1 text-primary-darken-1">mL</div>
     </v-card>
 
-    <CalculatorActions @copy="copyToClipboard('DosageConverter', `Regra de Três:\nPrescrito: ${haveDose || 0}mg -> Diluído em: ${haveVolume || 0}mL\nDose Alvo: ${needDose || 0}mg -> Administrar: ${resultVolume} mL`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('DosageConverter', `Regra de Três:\nPrescrito: ${haveDose || 0}mg -> Diluído em: ${haveVolume || 0}mL\nDose Alvo: ${needDose || 0}mg -> Administrar: ${resultVolume} mL`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 

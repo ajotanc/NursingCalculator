@@ -9,35 +9,16 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="volume"
-          label="Volume Restante (mL)"
-          variant="outlined"
-          suffix="mL"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="volume" label="Volume Restante (mL)" variant="outlined" suffix="mL" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="rate"
-          label="Vazão Atual (mL/h)"
-          variant="outlined"
-          suffix="mL/h"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="rate" label="Vazão Atual (mL/h)" variant="outlined" suffix="mL/h" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
-          v-model="startTime"
-          type="time"
-          label="Horário de Início/Agora"
-          variant="outlined"
-          hide-details="auto"
-          color="primary"
-          @click="openPicker"
-        ></v-text-field>
+        <v-text-field v-model="startTime" type="time" label="Horário de Início/Agora" variant="outlined"
+          hide-details="auto" color="primary" @click="openPicker"></v-text-field>
       </v-col>
     </v-row>
 
@@ -45,7 +26,7 @@
 
     <v-row v-if="durationInMinutes > 0">
       <v-col cols="12" sm="6">
-        <v-card color="grey-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="grey-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-grey-darken-2 text-uppercase">Duração Total</div>
           <div class="text-h4 font-weight-black text-grey-darken-3 my-2">
             {{ formatDuration(durationInMinutes) }}
@@ -53,7 +34,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-primary-darken-2 text-uppercase">Término Previsto</div>
           <div class="text-h3 font-weight-black text-primary-darken-3 my-2">
             {{ expectedEndTime }}

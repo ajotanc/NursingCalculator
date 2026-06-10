@@ -34,7 +34,7 @@
 
 		<v-row v-if="isValid">
 			<v-col cols="12">
-				<v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded-lg" elevation="0">
+				<v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
 					<div :class="`text-subtitle-2 text-${riskColor}-darken-2 text-uppercase`">MEWS Score</div>
 					<div :class="`text-h3 font-weight-black text-${riskColor}-darken-3 my-2`">
 						{{ totalScore }} pontos

@@ -11,64 +11,62 @@
     <!-- Quick Actions -->
     <v-row class="mb-6">
       <v-col cols="6" sm="3" md="3">
-        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded-lg" @click="$emit('navigate', 'mav')">
+        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'mav')">
           <v-icon size="36">mdi-alert</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">MAVs</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="red" variant="tonal" class="pa-4 text-center rounded-lg"
-          @click="$emit('navigate', 'vasoactive')">
+        <v-card color="red" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'vasoactive')">
           <v-icon size="36">mdi-heart-pulse</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Drogas Vasoat.</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="cyan" variant="tonal" class="pa-4 text-center rounded-lg" @click="$emit('navigate', 'bic')">
+        <v-card color="cyan" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'bic')">
           <v-icon size="36">mdi-pump</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Bomba (BIC)</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="indigo" variant="tonal" class="pa-4 text-center rounded-lg"
+        <v-card color="indigo" variant="tonal" class="pa-4 text-center rounded"
           @click="$emit('navigate', 'electrolytes')">
           <v-icon size="36">mdi-test-tube</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Eletrólitos</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="green" variant="tonal" class="pa-4 text-center rounded-lg"
+        <v-card color="green" variant="tonal" class="pa-4 text-center rounded"
           @click="$emit('navigate', 'waterbalance')">
           <v-icon size="36">mdi-scale-balance</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Bal. Hídrico</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="deep-orange" variant="tonal" class="pa-4 text-center rounded-lg"
+        <v-card color="deep-orange" variant="tonal" class="pa-4 text-center rounded"
           @click="$emit('navigate', 'earlywarning')">
           <v-icon size="36">mdi-alert-octagon</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Escala MEWS</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="orange" variant="tonal" class="pa-4 text-center rounded-lg"
-          @click="$emit('navigate', 'glasgow')">
+        <v-card color="orange" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'glasgow')">
           <v-icon size="36">mdi-eye</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Glasgow</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded-lg" @click="$emit('navigate', 'drip')">
+        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'drip')">
           <v-icon size="36">mdi-water</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Gotejamento</div>
         </v-card>
       </v-col>
     </v-row>
 
-    <v-divider class="mb-6 flex-shrink-0"></v-divider>
+    <v-divider class="mb-6 shrink-0"></v-divider>
 
     <!-- History Section -->
-    <div class="d-flex flex-column flex-md-row align-center justify-space-between flex-shrink-0">
+    <div class="d-flex flex-column flex-md-row align-center justify-space-between shrink-0">
       <h2 class="text-h5 font-weight-bold text-primary">Histórico Recente</h2>
       <div v-if="history.length > 0" class="d-flex ga-2">
         <v-icon-btn color="grey" variant="text" size="small" icon="mdi-clipboard-multiple" @click="copyAllHistory" />
@@ -85,7 +83,7 @@
 
     <v-timeline v-else density="compact" align="start" side="end">
       <v-timeline-item v-for="item in history" :key="item.id" dot-color="primary" size="small" width="100%">
-        <v-card variant="flat" border class="w-100">
+        <v-card border class="w-100">
           <v-card-item class="pb-2">
             <template v-slot:title>
               <div class="d-flex justify-space-between align-center">

@@ -13,6 +13,16 @@ import "vuetify/styles";
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
+	defaults: {
+		VCard: {
+			style: "border-color: rgba(var(--v-theme-on-surface), 0.38)",
+		},
+		VDialog: {
+			VCard: {
+				rounded: "0",
+			},
+		},
+	},
 	theme: {
 		defaultTheme: "dark",
 		themes: {

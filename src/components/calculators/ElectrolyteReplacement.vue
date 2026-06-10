@@ -9,25 +9,12 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="selectedAmpoule"
-          :items="ampoules"
-          label="Eletrólito / Ampola"
-          variant="outlined"
-          hide-details="auto"
-          item-title="name"
-          return-object
-        ></v-select>
+        <v-select v-model="selectedAmpoule" :items="ampoules" label="Eletrólito / Ampola" variant="outlined"
+          hide-details="auto" item-title="name" return-object></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="prescribedMEq"
-          label="Prescrição (mEq)"
-          variant="outlined"
-          suffix="mEq"
-          min="0"
-          hide-details="auto"
-        />
+        <NumericInput v-model.number="prescribedMEq" label="Prescrição (mEq)" variant="outlined" suffix="mEq" min="0"
+          hide-details="auto" />
       </v-col>
     </v-row>
 
@@ -35,7 +22,7 @@
 
     <v-row v-if="isValid && selectedAmpoule">
       <v-col cols="12">
-        <v-card color="indigo-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="indigo-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-indigo-darken-4 text-uppercase">Volume a Aspirar</div>
           <div class="text-h2 font-weight-black text-indigo-darken-4 my-2">
             {{ calculatedVolume }} <span class="text-h5">mL</span>

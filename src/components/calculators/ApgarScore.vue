@@ -9,59 +9,24 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="heartRate"
-          :items="hrOptions"
-          label="Frequência Cardíaca"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="heartRate" :items="hrOptions" label="Frequência Cardíaca" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="respiration"
-          :items="respOptions"
-          label="Esforço Respiratório"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="respiration" :items="respOptions" label="Esforço Respiratório" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="muscleTone"
-          :items="toneOptions"
-          label="Tônus Muscular"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="muscleTone" :items="toneOptions" label="Tônus Muscular" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="reflex"
-          :items="reflexOptions"
-          label="Irritabilidade Reflexa"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="reflex" :items="reflexOptions" label="Irritabilidade Reflexa" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12">
-        <v-select
-          v-model="color"
-          :items="colorOptions"
-          label="Cor da Pele"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="color" :items="colorOptions" label="Cor da Pele" variant="outlined" hide-details="auto"
+          item-title="title" item-value="value"></v-select>
       </v-col>
     </v-row>
 
@@ -69,7 +34,7 @@
 
     <v-row v-if="isValid">
       <v-col cols="12">
-        <v-card :color="apgarColor + '-lighten-4'" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card :color="apgarColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
           <div :class="`text-subtitle-2 text-${apgarColor}-darken-2 text-uppercase`">Escore APGAR</div>
           <div :class="`text-h2 font-weight-black text-${apgarColor}-darken-3 my-2`">
             {{ totalScore }}

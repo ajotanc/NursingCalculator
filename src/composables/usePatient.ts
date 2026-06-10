@@ -11,6 +11,8 @@ export interface PatientProfile {
 	fr?: number | null;
 	temp?: number | null;
 	spO2?: number | null;
+	age?: number | null;
+	fallRisk?: boolean;
 }
 
 export const usePatient = () => {
@@ -28,7 +30,16 @@ export const usePatient = () => {
 			(p) => p.id === activePatientId.value,
 		);
 		// Return a default blank object if no patient is active
-		return active || { id: "", name: "", weight: null, height: null };
+		return (
+			active || {
+				id: "",
+				name: "",
+				weight: null,
+				height: null,
+				age: null,
+				fallRisk: false,
+			}
+		);
 	});
 
 	const formatPatientVitals = (patient: PatientProfile | null) => {

@@ -9,26 +9,12 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-text-field
-          v-model="dumDate"
-          type="date"
-          label="DUM (Data Última Menstruação)"
-          variant="outlined"
-          hide-details="auto"
-          color="primary"
-          @click="openPicker"
-        ></v-text-field>
+        <v-text-field v-model="dumDate" type="date" label="DUM (Data Última Menstruação)" variant="outlined"
+          hide-details="auto" color="primary" @click="openPicker"></v-text-field>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-text-field
-          v-model="currentDate"
-          type="date"
-          label="Data Atual / Data do Cálculo"
-          variant="outlined"
-          hide-details="auto"
-          color="primary"
-          @click="openPicker"
-        ></v-text-field>
+        <v-text-field v-model="currentDate" type="date" label="Data Atual / Data do Cálculo" variant="outlined"
+          hide-details="auto" color="primary" @click="openPicker"></v-text-field>
       </v-col>
     </v-row>
 
@@ -36,15 +22,16 @@
 
     <v-row v-if="isValidDates">
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-primary-darken-2 text-uppercase">Idade Gestacional (IG)</div>
           <div class="text-h3 font-weight-black text-primary-darken-3 my-2">
-            {{ igWeeks }} <span class="text-h5">sem</span> <br v-if="igDays > 0"/> <span v-if="igDays > 0">{{ igDays }} <span class="text-h5">dias</span></span>
+            {{ igWeeks }} <span class="text-h5">sem</span> <br v-if="igDays > 0" /> <span v-if="igDays > 0">{{ igDays }}
+              <span class="text-h5">dias</span></span>
           </div>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="purple-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card color="purple-lighten-4" class="pa-4 text-center rounded" elevation="0">
           <div class="text-subtitle-2 text-purple-darken-2 text-uppercase">Data Provável do Parto (DPP)</div>
           <div class="text-h4 font-weight-black text-purple-darken-3 my-2 mt-4">
             {{ dppDateDisplay }}

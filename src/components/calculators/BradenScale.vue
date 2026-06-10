@@ -9,70 +9,28 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="sensory"
-          :items="sensoryOptions"
-          label="Percepção Sensorial"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="sensory" :items="sensoryOptions" label="Percepção Sensorial" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="moisture"
-          :items="moistureOptions"
-          label="Umidade"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="moisture" :items="moistureOptions" label="Umidade" variant="outlined" hide-details="auto"
+          item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="activity"
-          :items="activityOptions"
-          label="Atividade"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="activity" :items="activityOptions" label="Atividade" variant="outlined" hide-details="auto"
+          item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="mobility"
-          :items="mobilityOptions"
-          label="Mobilidade"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="mobility" :items="mobilityOptions" label="Mobilidade" variant="outlined" hide-details="auto"
+          item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="nutrition"
-          :items="nutritionOptions"
-          label="Nutrição"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="nutrition" :items="nutritionOptions" label="Nutrição" variant="outlined" hide-details="auto"
+          item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="friction"
-          :items="frictionOptions"
-          label="Fricção e Cisalhamento"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="friction" :items="frictionOptions" label="Fricção e Cisalhamento" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
     </v-row>
 
@@ -80,7 +38,7 @@
 
     <v-row v-if="totalScore > 0">
       <v-col cols="12">
-        <v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
           <div :class="`text-subtitle-2 text-${riskColor}-darken-2 text-uppercase`">Risco de LPP</div>
           <div :class="`text-h4 font-weight-black text-${riskColor}-darken-3 my-2`">
             {{ riskClassification }}

@@ -9,42 +9,22 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="presentation"
-          :items="[5000000, 10000000]"
-          label="Apresentação do Frasco (UI)"
-          variant="outlined"
-          suffix="UI"
-          hide-details="auto"
-        ></v-select>
+        <v-select v-model="presentation" :items="[5000000, 10000000]" label="Apresentação do Frasco (UI)"
+          variant="outlined" suffix="UI" hide-details="auto"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="diluent"
-          label="Solvente/Água Adicionada (mL)"
-         
-          variant="outlined"
-          suffix="mL"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="diluent" label="Solvente/Água Adicionada (mL)" variant="outlined" suffix="mL"
+          min="0" hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12">
-        <NumericInput
-          v-model.number="prescription"
-          label="Prescrição Médica (UI)"
-         
-          variant="outlined"
-          suffix="UI"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="prescription" label="Prescrição Médica (UI)" variant="outlined" suffix="UI"
+          min="0" hide-details="auto"></NumericInput>
       </v-col>
     </v-row>
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded" elevation="0">
       <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Você deve aspirar</div>
       <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ resultVolume }}
@@ -52,7 +32,9 @@
       <div class="text-subtitle-1 text-primary-darken-1">mL do frasco reconstituído</div>
     </v-card>
 
-    <CalculatorActions @copy="copyToClipboard('PenicillinDilution', `Diluição de Penicilina:\nFrasco: ${presentation} UI\nPrescrição: ${prescription || 0} UI\nAdministrar: ${resultVolume} mL`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('PenicillinDilution', `Diluição de Penicilina:\nFrasco: ${presentation} UI\nPrescrição: ${prescription || 0} UI\nAdministrar: ${resultVolume} mL`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 

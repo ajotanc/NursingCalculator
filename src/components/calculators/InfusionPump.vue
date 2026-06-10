@@ -24,7 +24,7 @@
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded" elevation="0">
       <v-alert v-if="Number(infusionRate) > 999.9" type="warning" variant="tonal"
         class="mb-4 text-start font-weight-bold" icon="mdi-alert">
         Atenção: A vazão excede o limite padrão da maioria das Bombas de Infusão (999.9 mL/h). Confirme a prescrição.
@@ -37,7 +37,9 @@
       <div class="text-subtitle-1 text-primary-darken-1">mL/h</div>
     </v-card>
 
-    <CalculatorActions @copy="copyToClipboard('InfusionPump', `Bomba de Infusão Contínua (BIC):\nAmpola: ${ampouleVolume || 0}mL + Soro: ${serumVolume || 0}mL\nTempo: ${hours || 0}h\nVazão: ${infusionRate} mL/h`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('InfusionPump', `Bomba de Infusão Contínua (BIC):\nAmpola: ${ampouleVolume || 0}mL + Soro: ${serumVolume || 0}mL\nTempo: ${hours || 0}h\nVazão: ${infusionRate} mL/h`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 

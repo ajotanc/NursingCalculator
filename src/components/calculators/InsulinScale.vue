@@ -7,25 +7,19 @@
       O resultado baseia-se em um protocolo padrão genérico. Verifique a prescrição do seu hospital.
     </v-alert>
 
-    <NumericInput
-      v-model.number="hgt"
-      label="Glicemia Capilar (HGT)"
-     
-      variant="outlined"
-      suffix="mg/dL"
-      min="0"
-      hide-details="auto"
-      class="mb-6"
-    ></NumericInput>
+    <NumericInput v-model.number="hgt" label="Glicemia Capilar (HGT)" variant="outlined" suffix="mg/dL" min="0"
+      hide-details="auto" class="mb-6"></NumericInput>
 
-    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded" elevation="0">
       <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Dose Indicada</div>
       <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ insulinUnits }}
       </div>
       <div class="text-subtitle-1 text-primary-darken-1">Unidades de Insulina Regular</div>
     </v-card>
-    <CalculatorActions @copy="copyToClipboard('InsulinScale', `Escala de Insulina:\nGlicemia: ${hgt || 0} mg/dL\nAdministrar: ${insulinUnits} UI`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('InsulinScale', `Escala de Insulina:\nGlicemia: ${hgt || 0} mg/dL\nAdministrar: ${insulinUnits} UI`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 

@@ -22,8 +22,8 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="primary" variant="tonal"
-          class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
+        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded h-100 d-flex flex-column justify-center"
+          elevation="0">
           <div class="text-subtitle-2 text-uppercase">IMC</div>
           <div class="text-h3 font-weight-black my-2">
             {{ bmiResult }}
@@ -32,7 +32,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center"
+        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded h-100 d-flex flex-column justify-center"
           elevation="0">
           <div class="text-subtitle-2 text-uppercase">Superfície Corporal (Mosteller)</div>
           <div class="text-h3 font-weight-black my-2">

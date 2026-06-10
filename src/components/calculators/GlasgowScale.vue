@@ -9,46 +9,22 @@
 
     <v-row>
       <v-col cols="12">
-        <v-select
-          v-model="eyeOpening"
-          :items="eyeOptions"
-          item-title="title"
-          item-value="value"
-          label="Abertura Ocular"
-          variant="outlined"
-          color="primary"
-          hide-details="auto"
-        ></v-select>
+        <v-select v-model="eyeOpening" :items="eyeOptions" item-title="title" item-value="value" label="Abertura Ocular"
+          variant="outlined" color="primary" hide-details="auto"></v-select>
       </v-col>
       <v-col cols="12">
-        <v-select
-          v-model="verbalResponse"
-          :items="verbalOptions"
-          item-title="title"
-          item-value="value"
-          label="Resposta Verbal"
-          variant="outlined"
-          color="primary"
-          hide-details="auto"
-        ></v-select>
+        <v-select v-model="verbalResponse" :items="verbalOptions" item-title="title" item-value="value"
+          label="Resposta Verbal" variant="outlined" color="primary" hide-details="auto"></v-select>
       </v-col>
       <v-col cols="12">
-        <v-select
-          v-model="motorResponse"
-          :items="motorOptions"
-          item-title="title"
-          item-value="value"
-          label="Resposta Motora"
-          variant="outlined"
-          color="primary"
-          hide-details="auto"
-        ></v-select>
+        <v-select v-model="motorResponse" :items="motorOptions" item-title="title" item-value="value"
+          label="Resposta Motora" variant="outlined" color="primary" hide-details="auto"></v-select>
       </v-col>
     </v-row>
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card :color="scoreColor" class="pa-6 text-center rounded-lg" elevation="0" variant="tonal">
+    <v-card :color="scoreColor" class="pa-6 text-center rounded" elevation="0" variant="tonal">
       <div class="text-subtitle-2 text-uppercase">Pontuação Total</div>
       <div class="text-h2 font-weight-black my-2">
         {{ totalScore }}
@@ -56,7 +32,9 @@
       <div class="text-subtitle-1 font-weight-bold">{{ classification }}</div>
     </v-card>
 
-    <CalculatorActions @copy="copyToClipboard('GlasgowScale', `Escala de Coma de Glasgow:\nAbertura Ocular: ${eyeOpening || 0}\nResposta Verbal: ${verbalResponse || 0}\nResposta Motora: ${motorResponse || 0}\nTotal: ${totalScore} (${classification})`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('GlasgowScale', `Escala de Coma de Glasgow:\nAbertura Ocular: ${eyeOpening || 0}\nResposta Verbal: ${verbalResponse || 0}\nResposta Motora: ${motorResponse || 0}\nTotal: ${totalScore} (${classification})`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 

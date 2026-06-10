@@ -47,7 +47,7 @@
 
         <v-divider class="my-6"></v-divider>
 
-        <v-card color="error" class="pa-6 text-center rounded-lg" elevation="0" variant="tonal">
+        <v-card color="error" class="pa-6 text-center rounded" elevation="0" variant="tonal">
           <div class="text-subtitle-2 text-uppercase">Vazão Recomendada</div>
           <div class="text-h2 font-weight-black my-2">
             {{ calculatedRate }}

@@ -10,16 +10,20 @@
     <v-row>
       <!-- ENTRADAS -->
       <v-col cols="12" md="6">
-        <v-card variant="outlined" class="pa-4">
+        <v-card class="pa-4">
           <div class="text-h6 mb-4 d-flex align-center text-blue-darken-2">
             <v-icon icon="mdi-water-plus" class="mr-2"></v-icon> Entradas (In)
           </div>
-          
-          <NumericInput v-model.number="inSoro" label="Soros / Hidratação IV" suffix="mL" variant="underlined" min="0" class="mb-2" />
-          <NumericInput v-model.number="inMeds" label="Medicações IV (Diluições)" suffix="mL" variant="underlined" min="0" class="mb-2" />
-          <NumericInput v-model.number="inDiet" label="Dieta Enteral / VO" suffix="mL" variant="underlined" min="0" class="mb-2" />
-          <NumericInput v-model.number="inOther" label="Outras Entradas (Transfusão, etc)" suffix="mL" variant="underlined" min="0" />
-          
+
+          <NumericInput v-model.number="inSoro" label="Soros / Hidratação IV" suffix="mL" variant="underlined" min="0"
+            class="mb-2" />
+          <NumericInput v-model.number="inMeds" label="Medicações IV (Diluições)" suffix="mL" variant="underlined"
+            min="0" class="mb-2" />
+          <NumericInput v-model.number="inDiet" label="Dieta Enteral / VO" suffix="mL" variant="underlined" min="0"
+            class="mb-2" />
+          <NumericInput v-model.number="inOther" label="Outras Entradas (Transfusão, etc)" suffix="mL"
+            variant="underlined" min="0" />
+
           <div class="text-h6 text-right mt-4 text-blue-darken-2">
             Total IN: {{ totalIn }} mL
           </div>
@@ -28,15 +32,19 @@
 
       <!-- SAÍDAS -->
       <v-col cols="12" md="6">
-        <v-card variant="outlined" color="orange-darken-2" class="pa-4">
+        <v-card color="orange-darken-2" class="pa-4">
           <div class="text-h6 mb-4 d-flex align-center">
             <v-icon icon="mdi-water-minus" class="mr-2"></v-icon> Saídas (Out)
           </div>
-          
-          <NumericInput v-model.number="outDiuresis" label="Diurese" suffix="mL" variant="underlined" min="0" class="mb-2" />
-          <NumericInput v-model.number="outDrains" label="Drenos" suffix="mL" variant="underlined" min="0" class="mb-2" />
-          <NumericInput v-model.number="outVomit" label="Vômito / Estase Gástrica" suffix="mL" variant="underlined" min="0" class="mb-2" />
-          <NumericInput v-model.number="outOther" label="Outras Saídas (Fezes, etc)" suffix="mL" variant="underlined" min="0" />
+
+          <NumericInput v-model.number="outDiuresis" label="Diurese" suffix="mL" variant="underlined" min="0"
+            class="mb-2" />
+          <NumericInput v-model.number="outDrains" label="Drenos" suffix="mL" variant="underlined" min="0"
+            class="mb-2" />
+          <NumericInput v-model.number="outVomit" label="Vômito / Estase Gástrica" suffix="mL" variant="underlined"
+            min="0" class="mb-2" />
+          <NumericInput v-model.number="outOther" label="Outras Saídas (Fezes, etc)" suffix="mL" variant="underlined"
+            min="0" />
 
           <div class="text-h6 text-right mt-4 text-orange-darken-2">
             Total OUT: {{ totalOut }} mL
@@ -49,14 +57,14 @@
 
     <v-row v-if="totalIn > 0 || totalOut > 0">
       <v-col cols="12">
-        <v-card :color="balanceColor + '-lighten-4'" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card :color="balanceColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
           <div :class="`text-subtitle-2 text-${balanceColor}-darken-2 text-uppercase`">Saldo do Balanço Hídrico</div>
           <div :class="`text-h3 font-weight-black text-${balanceColor}-darken-3 my-2`">
             {{ balance > 0 ? '+' : '' }}{{ balance }} mL
           </div>
           <div :class="`text-subtitle-1 text-${balanceColor}-darken-2`">
-            {{ balance > 0 ? 'Balanço Positivo (Retenção)' : balance < 0 ? 'Balanço Negativo (Perda)' : 'Balanço Zerado' }}
-          </div>
+            {{ balance > 0 ? 'Balanço Positivo (Retenção)' : balance < 0 ? 'Balanço Negativo (Perda)' : 'Balanço Zerado'
+            }} </div>
         </v-card>
       </v-col>
     </v-row>

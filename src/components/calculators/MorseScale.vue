@@ -9,70 +9,28 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="history"
-          :items="historyOptions"
-          label="Histórico de Quedas (últimos 3 meses)"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="history" :items="historyOptions" label="Histórico de Quedas (últimos 3 meses)"
+          variant="outlined" hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="secondaryDiagnosis"
-          :items="yesNoOptions(15)"
-          label="Diagnóstico Secundário (>1 diagnóstico)"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="secondaryDiagnosis" :items="yesNoOptions(15)" label="Diagnóstico Secundário (>1 diagnóstico)"
+          variant="outlined" hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="ambulation"
-          :items="ambulationOptions"
-          label="Auxílio na Deambulação"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="ambulation" :items="ambulationOptions" label="Auxílio na Deambulação" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="ivTherapy"
-          :items="yesNoOptions(20)"
-          label="Terapia Endovenosa / Acesso Salinizado"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="ivTherapy" :items="yesNoOptions(20)" label="Terapia Endovenosa / Acesso Salinizado"
+          variant="outlined" hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="gait"
-          :items="gaitOptions"
-          label="Marcha"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="gait" :items="gaitOptions" label="Marcha" variant="outlined" hide-details="auto"
+          item-title="title" item-value="value"></v-select>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-select
-          v-model="mentalStatus"
-          :items="mentalOptions"
-          label="Estado Mental"
-          variant="outlined"
-          hide-details="auto"
-          item-title="title"
-          item-value="value"
-        ></v-select>
+        <v-select v-model="mentalStatus" :items="mentalOptions" label="Estado Mental" variant="outlined"
+          hide-details="auto" item-title="title" item-value="value"></v-select>
       </v-col>
     </v-row>
 
@@ -80,7 +38,7 @@
 
     <v-row v-if="history !== null">
       <v-col cols="12">
-        <v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded-lg" elevation="0">
+        <v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
           <div :class="`text-subtitle-2 text-${riskColor}-darken-2 text-uppercase`">Risco de Queda</div>
           <div :class="`text-h4 font-weight-black text-${riskColor}-darken-3 my-2`">
             {{ riskClassification }}

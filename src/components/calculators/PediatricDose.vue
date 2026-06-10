@@ -4,49 +4,26 @@
       Calculadora Pediátrica (mg/kg)
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
-      Calcule a dose alvo baseada no peso da criança e descubra o volume exato a ser administrado (para xaropes ou ampolas).
+      Calcule a dose alvo baseada no peso da criança e descubra o volume exato a ser administrado (para xaropes ou
+      ampolas).
     </div>
 
     <v-row>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="weight"
-          label="Peso da Criança (kg)"
-          variant="outlined"
-          suffix="kg"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="weight" label="Peso da Criança (kg)" variant="outlined" suffix="kg" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="dosePerKg"
-          label="Dose Prescrita (mg/kg)"
-          variant="outlined"
-          suffix="mg/kg"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="dosePerKg" label="Dose Prescrita (mg/kg)" variant="outlined" suffix="mg/kg"
+          min="0" hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="bottleDose"
-          label="Concentração do Frasco (mg)"
-          variant="outlined"
-          suffix="mg"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="bottleDose" label="Concentração do Frasco (mg)" variant="outlined" suffix="mg"
+          min="0" hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="bottleVolume"
-          label="Volume do Frasco (mL)"
-          variant="outlined"
-          suffix="mL"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="bottleVolume" label="Volume do Frasco (mL)" variant="outlined" suffix="mL" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
     </v-row>
 
@@ -54,7 +31,8 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="blue-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
+        <v-card color="blue-lighten-4" class="pa-4 text-center rounded h-100 d-flex flex-column justify-center"
+          elevation="0">
           <div class="text-subtitle-2 text-blue-darken-3 text-uppercase">Dose Alvo Total</div>
           <div class="text-h3 font-weight-black text-blue-darken-4 my-2">
             {{ targetDoseResult }}
@@ -63,7 +41,8 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded h-100 d-flex flex-column justify-center"
+          elevation="0">
           <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Você deve administrar</div>
           <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
             {{ volumeToAdminister }}
@@ -73,7 +52,9 @@
       </v-col>
     </v-row>
 
-    <CalculatorActions @copy="copyToClipboard('PediatricDose', `Dose Pediátrica:\nPeso: ${weight || 0}kg | Prescrição: ${dosePerKg || 0}mg/kg\nDose Total: ${targetDoseResult}mg\nVolume a Administrar: ${volumeToAdminister} mL`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('PediatricDose', `Dose Pediátrica:\nPeso: ${weight || 0}kg | Prescrição: ${dosePerKg || 0}mg/kg\nDose Total: ${targetDoseResult}mg\nVolume a Administrar: ${volumeToAdminister} mL`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 
