@@ -83,7 +83,15 @@
               </svg>
             </div>
 
-            <p class="text-body-2 mb-0">{{ catheter.indication }}</p>
+            <div class="d-flex ga-2 mb-3 flex-wrap">
+              <v-chip size="small" variant="flat" :color="catheter.colorHex" class="text-caption font-weight-bold" :class="catheter.color === 'Amarelo' ? 'text-black' : 'text-white'">
+                <v-icon start size="small">mdi-ruler</v-icon> {{ catheter.needleLen }} mm
+              </v-chip>
+              <v-chip size="small" variant="flat" :color="catheter.colorHex" class="text-caption font-weight-bold" :class="catheter.color === 'Amarelo' ? 'text-black' : 'text-white'">
+                <v-icon start size="small">mdi-water-sync</v-icon> ~{{ catheter.flow }} mL/min
+              </v-chip>
+            </div>
+            <p class="text-body-2 mb-0"><strong>Indicações:</strong> {{ catheter.indication }}</p>
           </v-card-item>
         </v-card>
       </v-col>
@@ -96,6 +104,7 @@ const catheters = [
 	{
 		gauge: 14,
 		needleLen: 60,
+		flow: 240,
 		color: "Laranja",
 		colorHex: "#F57C00",
 		indication:
@@ -104,6 +113,7 @@ const catheters = [
 	{
 		gauge: 16,
 		needleLen: 60,
+		flow: 180,
 		color: "Cinza",
 		colorHex: "#757575",
 		indication: "Trauma, cirurgias, rápida reposição de fluidos ou sangue.",
@@ -111,6 +121,7 @@ const catheters = [
 	{
 		gauge: 18,
 		needleLen: 54,
+		flow: 90,
 		color: "Verde",
 		colorHex: "#43A047",
 		indication:
@@ -119,6 +130,7 @@ const catheters = [
 	{
 		gauge: 20,
 		needleLen: 38,
+		flow: 60,
 		color: "Rosa",
 		colorHex: "#D81B60",
 		indication: "Uso rotineiro em adultos, medicação IV, hidratação padrão.",
@@ -126,6 +138,7 @@ const catheters = [
 	{
 		gauge: 22,
 		needleLen: 30,
+		flow: 36,
 		color: "Azul",
 		colorHex: "#1E88E5",
 		indication: "Veias finas, idosos, quimioterapia, medicações de rotina.",
@@ -133,6 +146,7 @@ const catheters = [
 	{
 		gauge: 24,
 		needleLen: 23,
+		flow: 20,
 		color: "Amarelo",
 		colorHex: "#FFB300",
 		indication: "Uso em pediatria, recém-nascidos, veias muito frágeis.",
