@@ -83,15 +83,24 @@ import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
+import NumericInput from "@/components/NumericInput.vue";
+import { usePatient } from "@/composables/usePatient";
 
+const { currentPatient } = usePatient();
 const weight = ref<number | null>(null);
+
+onMounted(() => {
+	if (currentPatient.value.weight) {
+		weight.value = currentPatient.value.weight;
+	}
+});
 const dosePerKg = ref<number | null>(null);
 const bottleDose = ref<number | null>(null);
 const bottleVolume = ref<number | null>(null);
 
 const resetForm = (): void => {
-	weight.value = null;
+	weight.value = currentPatient.value.weight;
 	dosePerKg.value = null;
 	bottleDose.value = null;
 	bottleVolume.value = null;

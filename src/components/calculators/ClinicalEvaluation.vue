@@ -9,24 +9,12 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="weight"
-          label="Peso (kg)"
-          variant="outlined"
-          suffix="kg"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="weight" label="Peso (kg)" variant="outlined" suffix="kg" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="heightCm"
-          label="Altura (cm)"
-          variant="outlined"
-          suffix="cm"
-          min="0"
-          hide-details="auto"
-        ></NumericInput>
+        <NumericInput v-model.number="heightCm" label="Altura (cm)" variant="outlined" suffix="cm" min="0"
+          hide-details="auto"></NumericInput>
       </v-col>
     </v-row>
 
@@ -34,26 +22,30 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
-          <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">IMC</div>
-          <div class="text-h3 font-weight-black text-primary-darken-2 my-2">
+        <v-card color="primary" variant="tonal"
+          class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
+          <div class="text-subtitle-2 text-uppercase">IMC</div>
+          <div class="text-h3 font-weight-black my-2">
             {{ bmiResult }}
           </div>
-          <div class="text-caption text-primary-darken-1 font-weight-bold">{{ bmiClassification }}</div>
+          <div class="text-caption font-weight-bold">{{ bmiClassification }}</div>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="blue-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
-          <div class="text-subtitle-2 text-blue-darken-3 text-uppercase">Superfície Corporal (Mosteller)</div>
-          <div class="text-h3 font-weight-black text-blue-darken-4 my-2">
+        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center"
+          elevation="0">
+          <div class="text-subtitle-2 text-uppercase">Superfície Corporal (Mosteller)</div>
+          <div class="text-h3 font-weight-black my-2">
             {{ bsaResult }}
           </div>
-          <div class="text-caption text-blue-darken-3">m²</div>
+          <div class="text-caption">m²</div>
         </v-card>
       </v-col>
     </v-row>
 
-    <CalculatorActions @copy="copyToClipboard('ClinicalEvaluation', `Avaliação Clínica:\nPeso: ${weight || 0}kg | Altura: ${heightCm || 0}cm\nIMC: ${bmiResult} (${bmiClassification})\nSuperfície Corporal: ${bsaResult} m²`)" @reset="resetForm" />
+    <CalculatorActions
+      @copy="copyToClipboard('ClinicalEvaluation', `Avaliação Clínica:\nPeso: ${weight || 0}kg | Altura: ${heightCm || 0}cm\nIMC: ${bmiResult} (${bmiClassification})\nSuperfície Corporal: ${bsaResult} m²`)"
+      @reset="resetForm" />
   </v-container>
 </template>
 
@@ -63,14 +55,25 @@ import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
+import { usePatient } from "@/composables/usePatient";
 
+const { currentPatient } = usePatient();
 const weight = ref<number | null>(null);
 const heightCm = ref<number | null>(null);
 
+onMounted(() => {
+	if (currentPatient.value.weight) {
+		weight.value = currentPatient.value.weight;
+	}
+	if (currentPatient.value.height) {
+		heightCm.value = currentPatient.value.height;
+	}
+});
+
 const resetForm = (): void => {
-	weight.value = null;
-	heightCm.value = null;
+	weight.value = currentPatient.value.weight;
+	heightCm.value = currentPatient.value.height;
 };
 
 const bmiResult = computed<string>(() => {

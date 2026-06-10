@@ -9,25 +9,12 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="weight"
-          label="Peso do Paciente"
-          variant="outlined"
-          suffix="kg"
-          min="0"
-          hide-details="auto"
-        />
+        <NumericInput v-model.number="weight" label="Peso do Paciente" variant="outlined" suffix="kg" min="0"
+          hide-details="auto" />
       </v-col>
       <v-col cols="12" sm="6">
-        <NumericInput
-          v-model.number="burnedArea"
-          label="Superfície Queimada (SCQ)"
-          variant="outlined"
-          suffix="%"
-          min="0"
-          max="100"
-          hide-details="auto"
-        />
+        <NumericInput v-model.number="burnedArea" label="Superfície Queimada (SCQ)" variant="outlined" suffix="%"
+          min="0" max="100" hide-details="auto" />
       </v-col>
     </v-row>
 
@@ -73,18 +60,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import CalculatorActions from "@/components/CalculatorActions.vue";
 import NumericInput from "@/components/NumericInput.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
+import { usePatient } from "@/composables/usePatient";
 
 const { copyToClipboard } = useAppClipboard();
+const { currentPatient } = usePatient();
 
 const weight = ref<number | null>(null);
+
+onMounted(() => {
+	if (currentPatient.value.weight) {
+		weight.value = currentPatient.value.weight;
+	}
+});
+
 const burnedArea = ref<number | null>(null); // in percentage
 
 const resetForm = (): void => {
-	weight.value = null;
+	weight.value = currentPatient.value.weight;
 	burnedArea.value = null;
 };
 

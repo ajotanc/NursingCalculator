@@ -80,9 +80,9 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
-    define: { 
+    define: {
       'process.env': {},
-      global: "window", 
+      global: "window",
     },
     resolve: {
       alias: {
@@ -100,6 +100,11 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       chunkSizeWarningLimit: 4000,
+      modulePreload: {
+        resolveDependencies: (_filename, deps) => {
+          return deps.filter(dep => !['.woff', '.woff2', '.eot', '.ttf'].includes(dep))
+        },
+      },
       rollupOptions: {
         output: {
           manualChunks(id) {
