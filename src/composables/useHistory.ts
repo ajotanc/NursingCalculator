@@ -1,4 +1,5 @@
 import { useLocalStorage } from "@vueuse/core";
+import dayjs from "dayjs";
 
 export interface HistoryItem {
 	id: string;
@@ -15,7 +16,7 @@ export const useHistory = () => {
 			id: crypto.randomUUID(),
 			calculatorName,
 			text,
-			timestamp: Date.now(),
+			timestamp: dayjs().valueOf(),
 		});
 
 		// Keep only the last 30 items

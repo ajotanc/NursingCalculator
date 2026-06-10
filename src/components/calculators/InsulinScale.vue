@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Escala Móvel de Insulina
     </div>
     <v-alert type="warning" variant="tonal" class="mb-6 text-caption">
@@ -18,30 +18,26 @@
       class="mb-6"
     ></NumericInput>
 
-    <v-card color="teal-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
-      <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">Dose Indicada</div>
-      <div class="text-h2 font-weight-black text-teal-darken-4 my-2">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+      <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Dose Indicada</div>
+      <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ insulinUnits }}
       </div>
-      <div class="text-subtitle-1 text-teal-darken-3">Unidades de Insulina Regular</div>
+      <div class="text-subtitle-1 text-primary-darken-1">Unidades de Insulina Regular</div>
     </v-card>
-    <div class="mt-6 text-end">
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('InsulinScale', `Escala de Insulina:\nGlicemia: ${hgt || 0} mg/dL\nAdministrar: ${insulinUnits} UI`)">
-        Copiar
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('InsulinScale', `Escala de Insulina:\nGlicemia: ${hgt || 0} mg/dL\nAdministrar: ${insulinUnits} UI`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const hgt = useLocalStorage<number | null>("nc-InsulinScale-hgt", null);
+const hgt = ref<number | null>(null);
 
 const insulinUnits = computed<string>(() => {
 	const val = hgt.value ?? 0;
@@ -53,4 +49,8 @@ const insulinUnits = computed<string>(() => {
 	if (val >= 301 && val <= 350) return "8";
 	return "10+ (Notificar MD)";
 });
+
+const resetForm = (): void => {
+	// Adicionado automaticamente
+};
 </script>

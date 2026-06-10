@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Diluição de Penicilina
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
@@ -44,46 +44,29 @@
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card color="teal-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
-      <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">Você deve aspirar</div>
-      <div class="text-h2 font-weight-black text-teal-darken-4 my-2">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+      <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Você deve aspirar</div>
+      <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ resultVolume }}
       </div>
-      <div class="text-subtitle-1 text-teal-darken-3">mL do frasco reconstituído</div>
+      <div class="text-subtitle-1 text-primary-darken-1">mL do frasco reconstituído</div>
     </v-card>
 
-    <div class="mt-6 text-end">
-      
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('PenicillinDilution', `Diluição de Penicilina:\nFrasco: ${presentation} UI\nPrescrição: ${prescription || 0} UI\nAdministrar: ${resultVolume} mL`)">
-        Copiar
-      </v-btn>
-      <v-btn color="grey-darken-1" variant="text" @click="resetForm">
-        Limpar Valores
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('PenicillinDilution', `Diluição de Penicilina:\nFrasco: ${presentation} UI\nPrescrição: ${prescription || 0} UI\nAdministrar: ${resultVolume} mL`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const presentation = useLocalStorage<number>(
-	"nc-PenicillinDilution-presentation",
-	5000000,
-);
-const diluent = useLocalStorage<number | null>(
-	"nc-PenicillinDilution-diluent",
-	8,
-);
-const prescription = useLocalStorage<number | null>(
-	"nc-PenicillinDilution-prescription",
-	null,
-);
+const presentation = ref<number>(5000000);
+const diluent = ref<number | null>(8);
+const prescription = ref<number | null>(null);
 
 const resetForm = (): void => {
 	presentation.value = 5000000;

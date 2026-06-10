@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Protocolos de Alta Vigilância (MAV)
     </div>
     
@@ -12,7 +12,7 @@
       label="Selecione o Fármaco"
       variant="outlined"
       prepend-inner-icon="mdi-pill"
-      color="teal-darken-2"
+      color="primary"
       clearable
     ></v-autocomplete>
 
@@ -109,30 +109,23 @@
           </div>
           <div class="text-subtitle-1">mL/h</div>
         </v-card>
-        <div class="mt-6 text-end">
-          <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('MavProtocols', `Protocolo MAV - ${selectedMedicationName || 'Desconhecido'}:\nPeso: ${patientWeight || 0}kg | Dose Alvo: ${targetDose || 0}\nAmpola: ${drugDose || 0}mg em ${solutionVolume || 0}mL de Soro\nVazão Final: ${calculatedRate} mL/h`)">
-            Copiar
-          </v-btn>
-        </div>
+        <CalculatorActions @copy="copyToClipboard('MavProtocols', `Protocolos MAV:\nFármaco: ${selectedMedicationName || 'Desconhecido'}\nPeso: ${patientWeight || 0}kg | Dose Alvo: ${targetDose || 0}\nAmpola: ${drugDose || 0}mg em ${solutionVolume || 0}mL de Soro\nVazão Final: ${calculatedRate} mL/h`)" @reset="resetForm" />
       </div>
     </v-expand-transition>
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
 import { computed, ref, watch } from "vue";
 import { medications } from "../../data/medicationList";
 import type { MedicationProtocol } from "../../types/clinical";
 
-const selectedMedicationName = useLocalStorage<string | null>(
-	"nc-MavProtocols-selectedName",
-	null,
-);
+const selectedMedicationName = ref<string | null>(null);
 
 const selectedMedication = computed(() => {
 	if (!selectedMedicationName.value) return null;
@@ -141,22 +134,10 @@ const selectedMedication = computed(() => {
 	);
 });
 
-const patientWeight = useLocalStorage<number | null>(
-	"nc-MavProtocols-patientWeight",
-	null,
-);
-const targetDose = useLocalStorage<number | null>(
-	"nc-MavProtocols-targetDose",
-	null,
-);
-const drugDose = useLocalStorage<number | null>(
-	"nc-MavProtocols-drugDose",
-	null,
-);
-const solutionVolume = useLocalStorage<number | null>(
-	"nc-MavProtocols-solutionVolume",
-	null,
-);
+const patientWeight = ref<number | null>(null);
+const targetDose = ref<number | null>(null);
+const drugDose = ref<number | null>(null);
+const solutionVolume = ref<number | null>(null);
 
 watch(selectedMedicationName, () => {
 	patientWeight.value = null;
@@ -193,4 +174,12 @@ const calculatedRate = computed<string>(() => {
 		return (dd / sv).toFixed(1);
 	}
 });
+
+const resetForm = (): void => {
+	selectedMedicationName.value = null;
+	patientWeight.value = null;
+	targetDose.value = null;
+	drugDose.value = null;
+	solutionVolume.value = null;
+};
 </script>

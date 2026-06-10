@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Escala de Coma de Glasgow (ECG)
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
@@ -16,7 +16,7 @@
           item-value="value"
           label="Abertura Ocular"
           variant="outlined"
-          color="teal-darken-2"
+          color="primary"
           hide-details="auto"
         ></v-select>
       </v-col>
@@ -28,7 +28,7 @@
           item-value="value"
           label="Resposta Verbal"
           variant="outlined"
-          color="teal-darken-2"
+          color="primary"
           hide-details="auto"
         ></v-select>
       </v-col>
@@ -40,7 +40,7 @@
           item-value="value"
           label="Resposta Motora"
           variant="outlined"
-          color="teal-darken-2"
+          color="primary"
           hide-details="auto"
         ></v-select>
       </v-col>
@@ -56,32 +56,21 @@
       <div class="text-subtitle-1 font-weight-bold">{{ classification }}</div>
     </v-card>
 
-    <div class="mt-6 text-end">
-      
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('GlasgowScale', `Escala de Coma de Glasgow:\nAbertura Ocular: ${eyeOpening || 0}\nResposta Verbal: ${verbalResponse || 0}\nResposta Motora: ${motorResponse || 0}\nTotal: ${totalScore} (${classification})`)">
-        Copiar
-      </v-btn>
-      <v-btn color="grey-darken-1" variant="text" @click="resetForm">
-        Limpar Valores
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('GlasgowScale', `Escala de Coma de Glasgow:\nAbertura Ocular: ${eyeOpening || 0}\nResposta Verbal: ${verbalResponse || 0}\nResposta Motora: ${motorResponse || 0}\nTotal: ${totalScore} (${classification})`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-const eyeOpening = useLocalStorage<number | null>("nc-Glasgow-eye", null);
-const verbalResponse = useLocalStorage<number | null>(
-	"nc-Glasgow-verbal",
-	null,
-);
-const motorResponse = useLocalStorage<number | null>("nc-Glasgow-motor", null);
+const eyeOpening = ref<number | null>(null);
+const verbalResponse = ref<number | null>(null);
+const motorResponse = ref<number | null>(null);
 
 const eyeOptions = [
 	{ title: "Espontânea (4)", value: 4 },

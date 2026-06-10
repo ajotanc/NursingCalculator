@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Gotejamento Padrão
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
@@ -51,12 +51,12 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="teal-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
-          <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">Macrogotas</div>
-          <div class="text-h3 font-weight-black text-teal-darken-4 my-2">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg" elevation="0">
+          <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Macrogotas</div>
+          <div class="text-h3 font-weight-black text-primary-darken-2 my-2">
             {{ dropsResult }}
           </div>
-          <div class="text-caption text-teal-darken-3">gotas/minuto</div>
+          <div class="text-caption text-primary-darken-1">gotas/minuto</div>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
@@ -70,29 +70,21 @@
       </v-col>
     </v-row>
 
-    <div class="mt-6 text-end">
-      
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('DripRate', `Gotejamento Padrão:\nVolume: ${volume || 0}mL em ${Number(totalTimeInHours || 0).toFixed(1)}h\nVazão: ${dropsResult} macrogotas/min OU ${microDropsResult} microgotas/min`)">
-        Copiar
-      </v-btn>
-      <v-btn color="grey-darken-1" variant="text" @click="resetForm">
-        Limpar Valores
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('DripRate', `Gotejamento Padrão:\nVolume: ${volume || 0}mL em ${Number(totalTimeInHours || 0).toFixed(1)}h\nVazão: ${dropsResult} macrogotas/min OU ${microDropsResult} microgotas/min`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const volume = useLocalStorage<number | null>("nc-DripRate-volume", null);
-const hours = useLocalStorage<number | null>("nc-DripRate-hours", null);
-const minutes = useLocalStorage<number | null>("nc-DripRate-minutes", null);
+const volume = ref<number | null>(null);
+const hours = ref<number | null>(null);
+const minutes = ref<number | null>(null);
 
 const resetForm = (): void => {
 	volume.value = null;

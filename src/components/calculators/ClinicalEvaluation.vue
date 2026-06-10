@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Avaliação Clínica (IMC e SC)
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
@@ -34,12 +34,12 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="teal-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
-          <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">IMC</div>
-          <div class="text-h3 font-weight-black text-teal-darken-4 my-2">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
+          <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">IMC</div>
+          <div class="text-h3 font-weight-black text-primary-darken-2 my-2">
             {{ bmiResult }}
           </div>
-          <div class="text-caption text-teal-darken-3 font-weight-bold">{{ bmiClassification }}</div>
+          <div class="text-caption text-primary-darken-1 font-weight-bold">{{ bmiClassification }}</div>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
@@ -53,28 +53,20 @@
       </v-col>
     </v-row>
 
-    <div class="mt-6 d-flex justify-space-between align-center">
-      
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('ClinicalEvaluation', `Avaliação Clínica:\nPeso: ${weight || 0}kg | Altura: ${heightCm || 0}cm\nIMC: ${bmiResult} (${bmiClassification})\nSuperfície Corporal: ${bsaResult} m²`)">
-        Copiar
-      </v-btn>
-      <v-btn color="grey-darken-1" variant="text" @click="resetForm">
-        Limpar Valores
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('ClinicalEvaluation', `Avaliação Clínica:\nPeso: ${weight || 0}kg | Altura: ${heightCm || 0}cm\nIMC: ${bmiResult} (${bmiClassification})\nSuperfície Corporal: ${bsaResult} m²`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-const weight = useLocalStorage<number | null>("nc-Clinical-weight", null);
-const heightCm = useLocalStorage<number | null>("nc-Clinical-height", null);
+const weight = ref<number | null>(null);
+const heightCm = ref<number | null>(null);
 
 const resetForm = (): void => {
 	weight.value = null;

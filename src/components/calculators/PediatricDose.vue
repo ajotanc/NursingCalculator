@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Calculadora Pediátrica (mg/kg)
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
@@ -63,43 +63,32 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="teal-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
-          <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">Você deve administrar</div>
-          <div class="text-h2 font-weight-black text-teal-darken-4 my-2">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded-lg h-100 d-flex flex-column justify-center" elevation="0">
+          <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Você deve administrar</div>
+          <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
             {{ volumeToAdminister }}
           </div>
-          <div class="text-caption text-teal-darken-3">mL</div>
+          <div class="text-caption text-primary-darken-1">mL</div>
         </v-card>
       </v-col>
     </v-row>
 
-    <div class="mt-6 text-end">
-      
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text" @click="copyToClipboard('PediatricDose', `Dose Pediátrica:\nPeso: ${weight || 0}kg | Prescrição: ${dosePerKg || 0}mg/kg\nDose Total: ${targetDoseResult}mg\nVolume a Administrar: ${volumeToAdminister} mL`)">
-        Copiar
-      </v-btn>
-      <v-btn color="grey-darken-1" variant="text" @click="resetForm">
-        Limpar Valores
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('PediatricDose', `Dose Pediátrica:\nPeso: ${weight || 0}kg | Prescrição: ${dosePerKg || 0}mg/kg\nDose Total: ${targetDoseResult}mg\nVolume a Administrar: ${volumeToAdminister} mL`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-const weight = useLocalStorage<number | null>("nc-Peds-weight", null);
-const dosePerKg = useLocalStorage<number | null>("nc-Peds-dosePerKg", null);
-const bottleDose = useLocalStorage<number | null>("nc-Peds-bottleDose", null);
-const bottleVolume = useLocalStorage<number | null>(
-	"nc-Peds-bottleVolume",
-	null,
-);
+const weight = ref<number | null>(null);
+const dosePerKg = ref<number | null>(null);
+const bottleDose = ref<number | null>(null);
+const bottleVolume = ref<number | null>(null);
 
 const resetForm = (): void => {
 	weight.value = null;

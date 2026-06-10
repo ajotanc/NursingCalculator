@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <div class="text-h5 text-teal-darken-2 mb-4 font-weight-bold">
+    <div class="text-h5 text-primary mb-4 font-weight-bold">
       Bomba de Infusão Contínua (BIC)
     </div>
     <div class="text-subtitle-1 text-grey-darken-1 mb-6">
@@ -24,65 +24,50 @@
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card color="teal-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded-lg" elevation="0">
       <v-alert v-if="Number(infusionRate) > 999.9" type="warning" variant="tonal"
         class="mb-4 text-start font-weight-bold" icon="mdi-alert">
         Atenção: A vazão excede o limite padrão da maioria das Bombas de Infusão (999.9 mL/h). Confirme a prescrição.
       </v-alert>
 
-      <div class="text-subtitle-2 text-teal-darken-3 text-uppercase">Vazão da Bomba</div>
-      <div class="text-h2 font-weight-black text-teal-darken-4 my-2">
+      <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Vazão da Bomba</div>
+      <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ infusionRate }}
       </div>
-      <div class="text-subtitle-1 text-teal-darken-3">mL/h</div>
+      <div class="text-subtitle-1 text-primary-darken-1">mL/h</div>
     </v-card>
 
-    <div class="mt-6 text-end">
-
-      <v-btn color="teal-darken-2" variant="tonal" prepend-icon="mdi-clipboard-text"
-        @click="copyToClipboard('InfusionPump', `Bomba de Infusão Contínua (BIC):\nAmpola: ${ampouleVolume || 0}mL + Soro: ${serumVolume || 0}mL\nTempo: ${hours || 0}h\nVazão: ${infusionRate} mL/h`)">
-        Copiar
-      </v-btn>
-      <v-btn color="grey-darken-1" variant="text" @click="resetForm">
-        Limpar Valores
-      </v-btn>
-    </div>
+    <CalculatorActions @copy="copyToClipboard('InfusionPump', `Bomba de Infusão Contínua (BIC):\nAmpola: ${ampouleVolume || 0}mL + Soro: ${serumVolume || 0}mL\nTempo: ${hours || 0}h\nVazão: ${infusionRate} mL/h`)" @reset="resetForm" />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import CalculatorActions from "@/components/CalculatorActions.vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 
 const { copyToClipboard } = useAppClipboard();
 
-import { useLocalStorage } from "@vueuse/core";
 import { computed, ref } from "vue";
 
-const ampouleVolume = useLocalStorage<number | null>(
-  "nc-InfusionPump-ampouleVolume",
-  null,
-);
-const serumVolume = useLocalStorage<number | null>(
-  "nc-InfusionPump-serumVolume",
-  null,
-);
-const hours = useLocalStorage<number | null>("nc-InfusionPump-hours", null);
+const ampouleVolume = ref<number | null>(null);
+const serumVolume = ref<number | null>(null);
+const hours = ref<number | null>(null);
 
 const resetForm = (): void => {
-  ampouleVolume.value = null;
-  serumVolume.value = null;
-  hours.value = null;
+	ampouleVolume.value = null;
+	serumVolume.value = null;
+	hours.value = null;
 };
 
 const infusionRate = computed<string>(() => {
-  const v1 = ampouleVolume.value ?? 0;
-  const v2 = serumVolume.value ?? 0;
-  const totalVolume = v1 + v2;
-  const h = hours.value ?? 0;
+	const v1 = ampouleVolume.value ?? 0;
+	const v2 = serumVolume.value ?? 0;
+	const totalVolume = v1 + v2;
+	const h = hours.value ?? 0;
 
-  if (totalVolume <= 0 || h <= 0) {
-    return "0.0";
-  }
-  return (totalVolume / h).toFixed(1);
+	if (totalVolume <= 0 || h <= 0) {
+		return "0.0";
+	}
+	return (totalVolume / h).toFixed(1);
 });
 </script>

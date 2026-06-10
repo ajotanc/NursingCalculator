@@ -23,9 +23,9 @@ export default defineConfig(({ mode }) => {
         fontsource: {
           families: [
             {
-              name: 'Roboto',
+              name: 'Outfit',
               weights: [100, 300, 400, 500, 700, 900],
-              styles: ['normal', 'italic'],
+              styles: ['normal'],
             },
           ],
         },
@@ -40,8 +40,8 @@ export default defineConfig(({ mode }) => {
           start_url: "/",
           display: "fullscreen",
           description: env.VITE_DESCRIPTON,
-          theme_color: "#111111",
-          background_color: "#111111",
+          theme_color: "#187eb1",
+          background_color: "#187eb1",
           lang: "pt-BR",
           orientation: "any",
           icons: [
