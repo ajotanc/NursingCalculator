@@ -26,7 +26,7 @@
 
     <v-row v-if="durationInMinutes > 0">
       <v-col cols="12" sm="6">
-        <v-card color="grey-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="grey-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-grey-darken-2 text-uppercase">Duração Total</div>
           <div class="text-h4 font-weight-black text-grey-darken-3 my-2">
             {{ formatDuration(durationInMinutes) }}
@@ -34,7 +34,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-primary-darken-2 text-uppercase">Término Previsto</div>
           <div class="text-h3 font-weight-black text-primary-darken-3 my-2">
             {{ expectedEndTime }}

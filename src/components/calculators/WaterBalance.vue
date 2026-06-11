@@ -57,14 +57,14 @@
 
     <v-row v-if="totalIn > 0 || totalOut > 0">
       <v-col cols="12">
-        <v-card :color="balanceColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
+        <v-card :color="balanceColor + '-lighten-4'" class="pa-4 text-center rounded">
           <div :class="`text-subtitle-2 text-${balanceColor}-darken-2 text-uppercase`">Saldo do Balanço Hídrico</div>
           <div :class="`text-h3 font-weight-black text-${balanceColor}-darken-3 my-2`">
             {{ balance > 0 ? '+' : '' }}{{ balance }} mL
           </div>
           <div :class="`text-subtitle-1 text-${balanceColor}-darken-2`">
             {{ balance > 0 ? 'Balanço Positivo (Retenção)' : balance < 0 ? 'Balanço Negativo (Perda)' : 'Balanço Zerado'
-            }} </div>
+              }} </div>
         </v-card>
       </v-col>
     </v-row>

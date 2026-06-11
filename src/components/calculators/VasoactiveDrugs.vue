@@ -46,7 +46,7 @@
 
     <v-row class="mt-6" v-if="concentration > 0">
       <v-col cols="12">
-        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-uppercase">Concentração da Solução</div>
           <div class="text-h4 font-weight-black my-2">
             {{ concentration.toFixed(1) }}

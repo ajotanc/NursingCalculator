@@ -8,55 +8,146 @@
       evoluções.
     </div>
 
+    <!-- Perfil do Paciente (unificado) -->
+    <v-card class="mb-6">
+      <!-- EMPTY STATE -->
+      <div v-if="!hasPatientData" class="d-flex align-center justify-space-between pa-3 px-4"
+        style="opacity: 0.8;">
+        <div class="d-flex align-center ga-3">
+          <v-icon icon="mdi-account-plus" color="primary"></v-icon>
+          <div class="text-body-2 font-weight-medium">Nenhum paciente selecionado</div>
+        </div>
+        <v-btn size="small" color="primary" variant="tonal" class="font-weight-bold" @click="$emit('edit-patient')">
+          Configurar
+        </v-btn>
+      </div>
+
+      <!-- ACTIVE STATE -->
+      <div v-else class="pt-3 pb-3">
+        <div class="d-flex align-center justify-space-between px-4 mb-3">
+          <div class="d-flex align-center ga-3">
+            <v-badge dot color="success" location="bottom right" offset-x="2" offset-y="2">
+              <v-avatar size="40" color="primary" variant="tonal">
+                <v-icon icon="mdi-account" size="24"></v-icon>
+              </v-avatar>
+            </v-badge>
+            <div>
+              <div class="text-subtitle-1 font-weight-bold" style="line-height: 1.1;">
+                {{ currentPatient.name || 'Paciente Atual' }}
+              </div>
+              <v-chip v-if="currentPatient.fallRisk" size="x-small" color="error" variant="flat"
+                class="mt-1 font-weight-bold" style="height: 18px;">
+                Risco de Queda
+              </v-chip>
+            </div>
+          </div>
+          <v-btn icon="mdi-account-switch-outline" variant="tonal" size="small" color="primary" class="ma-0 rounded"
+            style="width: 28px; height: 28px;" @click="$emit('edit-patient')"></v-btn>
+        </div>
+
+        <!-- Basic Info Only (Idade, Peso, Altura) -->
+        <div class="px-4 d-flex flex-wrap align-center ga-4">
+          <div v-if="currentPatient.age" class="d-flex align-center ga-2">
+            <v-icon color="blue" size="18">mdi-calendar-blank</v-icon>
+            <div>
+              <div class="text-caption text-medium-emphasis" style="line-height: 1;">Idade</div>
+              <div class="text-body-2 font-weight-bold" style="line-height: 1.2;">{{ currentPatient.age }} anos</div>
+            </div>
+          </div>
+          <div v-if="currentPatient.weight" class="d-flex align-center ga-2">
+            <v-icon color="teal" size="18">mdi-scale</v-icon>
+            <div>
+              <div class="text-caption text-medium-emphasis" style="line-height: 1;">Peso</div>
+              <div class="text-body-2 font-weight-bold" style="line-height: 1.2;">{{ currentPatient.weight }} kg</div>
+            </div>
+          </div>
+          <div v-if="currentPatient.height" class="d-flex align-center ga-2">
+            <v-icon color="indigo" size="18">mdi-human-male-height</v-icon>
+            <div>
+              <div class="text-caption text-medium-emphasis" style="line-height: 1;">Altura</div>
+              <div class="text-body-2 font-weight-bold" style="line-height: 1.2;">{{ currentPatient.height }} cm</div>
+            </div>
+          </div>
+
+          <div v-if="!currentPatient.age && !currentPatient.weight && !currentPatient.height"
+            class="text-caption text-grey">
+            Dados básicos não informados.
+          </div>
+        </div>
+
+        <!-- Divider if there are clinical vitals -->
+        <v-divider class="my-3 mx-4" v-if="clinicalVitals.length > 0" style="opacity: 0.5;"></v-divider>
+
+        <!-- Ultra-compact Clinical Vitals (Icons + Values ONLY) -->
+        <div v-if="clinicalVitals.length > 0" class="px-4 d-flex flex-wrap align-center ga-2">
+          <template v-for="field in clinicalVitals" :key="field.key">
+            <v-chip size="small" variant="flat" style="background: rgba(var(--v-theme-on-surface), 0.04);"
+              class="border font-weight-medium px-2">
+              <v-icon start :color="field.color" size="14">{{ field.icon }}</v-icon>
+              <span class="text-high-emphasis font-weight-bold" style="letter-spacing: 0.2px;">
+                {{ field.value }}<span v-if="field.unit" class="text-caption text-medium-emphasis ml-1">{{ field.unit
+                  }}</span>
+              </span>
+            </v-chip>
+          </template>
+        </div>
+      </div>
+    </v-card>
+
     <!-- Quick Actions -->
     <v-row class="mb-6">
       <v-col cols="6" sm="3" md="3">
-        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'mav')">
+        <v-card color="primary" variant="tonal" class="pa-4 text-center rounded" :border="false"
+          @click="$emit('navigate', 'mav')">
           <v-icon size="36">mdi-alert</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">MAVs</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="red" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'vasoactive')">
+        <v-card color="red" variant="tonal" class="pa-4 text-center rounded" :border="false"
+          @click="$emit('navigate', 'vasoactive')">
           <v-icon size="36">mdi-heart-pulse</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Drogas Vasoat.</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="cyan" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'bic')">
+        <v-card color="cyan" variant="tonal" class="pa-4 text-center rounded" :border="false"
+          @click="$emit('navigate', 'bic')">
           <v-icon size="36">mdi-pump</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Bomba (BIC)</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="indigo" variant="tonal" class="pa-4 text-center rounded"
+        <v-card color="indigo" variant="tonal" class="pa-4 text-center rounded" :border="false"
           @click="$emit('navigate', 'electrolytes')">
           <v-icon size="36">mdi-test-tube</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Eletrólitos</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="green" variant="tonal" class="pa-4 text-center rounded"
+        <v-card color="green" variant="tonal" class="pa-4 text-center rounded" :border="false"
           @click="$emit('navigate', 'waterbalance')">
           <v-icon size="36">mdi-scale-balance</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Bal. Hídrico</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="deep-orange" variant="tonal" class="pa-4 text-center rounded"
+        <v-card color="deep-orange" variant="tonal" class="pa-4 text-center rounded" :border="false"
           @click="$emit('navigate', 'earlywarning')">
           <v-icon size="36">mdi-alert-octagon</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Escala MEWS</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="orange" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'glasgow')">
+        <v-card color="orange" variant="tonal" class="pa-4 text-center rounded" :border="false"
+          @click="$emit('navigate', 'glasgow')">
           <v-icon size="36">mdi-eye</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Glasgow</div>
         </v-card>
       </v-col>
       <v-col cols="6" sm="3" md="3">
-        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded" @click="$emit('navigate', 'drip')">
+        <v-card color="blue" variant="tonal" class="pa-4 text-center rounded" :border="false"
+          @click="$emit('navigate', 'drip')">
           <v-icon size="36">mdi-water</v-icon>
           <div class="text-subtitle-2 mt-2 font-weight-bold">Gotejamento</div>
         </v-card>
@@ -67,7 +158,7 @@
 
     <!-- History Section -->
     <div class="d-flex flex-column flex-md-row align-center justify-space-between shrink-0">
-      <h2 class="text-h5 font-weight-bold text-primary">Histórico Recente</h2>
+      <h2 class="text-h5 font-weight-bold text-primary">histórico Recente</h2>
       <div v-if="history.length > 0" class="d-flex ga-2">
         <v-icon-btn color="grey" variant="text" size="small" icon="mdi-clipboard-multiple" @click="copyAllHistory" />
         <v-icon-btn color="error" variant="text" size="small" icon="mdi-file-pdf-box" @click="generatePDF" />
@@ -116,7 +207,6 @@
         </v-card>
       </v-timeline-item>
     </v-timeline>
-
   </v-container>
 </template>
 
@@ -124,16 +214,28 @@
 import dayjs from "dayjs";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { computed } from "vue";
 import { useAppClipboard } from "@/composables/useAppClipboard";
 import { useHaptics } from "@/composables/useHaptics";
 import { type HistoryItem, useHistory } from "@/composables/useHistory";
+import { usePatient } from "@/composables/usePatient";
 import { APP_NAME } from "@/utils/config";
 
+const { currentPatient, hasPatientData, vitaisFields } = usePatient();
 const { history, clearHistory, deleteItem } = useHistory();
 const { copyRawText } = useAppClipboard();
-const { vibrate, vibrateSuccess, vibrateError } = useHaptics();
+const { vibrateSuccess, vibrateError } = useHaptics();
 
-defineEmits(["navigate"]);
+defineEmits(["navigate", "edit-patient"]);
+
+// Only return clinical vitals (excluding name, basic anthropometrics, and fallRisk)
+const clinicalVitals = computed(() => {
+	if (!hasPatientData.value) return [];
+	const excludeKeys = ["name", "age", "weight", "height", "fallRisk"];
+	return vitaisFields.value.filter(
+		(f) => f.value !== null && !excludeKeys.includes(f.key),
+	);
+});
 
 const calculatorNamesMap: Record<string, string> = {
 	ClinicalEvaluation: "Avaliação Clínica",
@@ -217,7 +319,7 @@ const generatePDF = () => {
 	});
 
 	doc.setFontSize(18);
-	doc.text("Histórico de Plantão - Nursing Calculator", 14, 22);
+	doc.text("histórico de Plantão - Nursing Calculator", 14, 22);
 
 	doc.setFontSize(11);
 	doc.setTextColor(100);
@@ -248,10 +350,13 @@ const generatePDF = () => {
 };
 </script>
 
-<style lang="css" scoped>
-.btn-delete-item {
-  position: absolute;
-  top: 0;
-  right: 0;
+<style>
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 </style>

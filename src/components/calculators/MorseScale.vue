@@ -38,7 +38,7 @@
 
     <v-row v-if="history !== null">
       <v-col cols="12">
-        <v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
+        <v-card :color="riskColor + '-lighten-4'" class="pa-4 text-center rounded">
           <div :class="`text-subtitle-2 text-${riskColor}-darken-2 text-uppercase`">Risco de Queda</div>
           <div :class="`text-h4 font-weight-black text-${riskColor}-darken-3 my-2`">
             {{ riskClassification }}

@@ -22,7 +22,7 @@
 
     <v-row v-if="isValidDates">
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-primary-darken-2 text-uppercase">Idade Gestacional (IG)</div>
           <div class="text-h3 font-weight-black text-primary-darken-3 my-2">
             {{ igWeeks }} <span class="text-h5">sem</span> <br v-if="igDays > 0" /> <span v-if="igDays > 0">{{ igDays }}
@@ -31,7 +31,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="purple-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="purple-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-purple-darken-2 text-uppercase">Data Provável do Parto (DPP)</div>
           <div class="text-h4 font-weight-black text-purple-darken-3 my-2 mt-4">
             {{ dppDateDisplay }}

@@ -10,13 +10,13 @@
     <v-row>
       <!-- Ritmos Chocáveis -->
       <v-col cols="12" md="6">
-        <v-card color="red-darken-4" class="h-100 rounded">
-          <v-card-item class="bg-white text-red-darken-4 text-center py-3">
+        <v-card class="h-100">
+          <v-card-item class="bg-red-lighten-4 text-red-darken-4 text-center py-3">
             <v-card-title class="d-flex align-center ga-1 text-title-large font-weight-black text-uppercase text-wrap">
               <v-icon icon="mdi-flash"></v-icon> Ritmos Chocáveis
             </v-card-title>
           </v-card-item>
-          <v-card-text class="pt-4 text-white">
+          <v-card-text class="pt-4 bg-red-darken-4 text-white">
             <div class="mb-4">
               <h3 class="font-weight-bold text-h6 ma-0">1. Fibrilação Ventricular (FV)</h3>
               <p class="text-body-2 opacity-80 mt-1">
@@ -41,13 +41,13 @@
 
       <!-- Ritmos Não Chocáveis -->
       <v-col cols="12" md="6">
-        <v-card color="blue-grey-darken-3" class="h-100">
-          <v-card-item class="bg-white text-blue-grey-darken-3 text-center py-3">
+        <v-card class="h-100">
+          <v-card-item class="bg-blue-grey-lighten-4 text-blue-grey-darken-3 text-center py-3">
             <v-card-title class="d-flex align-center ga-1 text-title-large font-weight-black text-uppercase text-wrap">
               <v-icon icon="mdi-flash-off" class="mr-1"></v-icon> Não Chocáveis
             </v-card-title>
           </v-card-item>
-          <v-card-text class="pt-4 text-white">
+          <v-card-text class="pt-4 bg-blue-grey-darken-3 text-white">
             <div class="mb-4">
               <h3 class="font-weight-bold text-h6 ma-0">1. Assistolia</h3>
               <p class="text-body-2 opacity-80 mt-1">

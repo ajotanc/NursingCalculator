@@ -20,7 +20,7 @@
 
 		<v-row class="grow" v-if="drug1 && drug2 && drug1 !== drug2">
 			<v-col cols="12" class="d-flex align-start justify-center">
-				<v-card class="pa-6 w-100 text-center rounded" :color="resultColor" variant="tonal" elevation="0">
+				<v-card class="pa-6 w-100 text-center rounded" :color="resultColor" variant="tonal">
 					<v-icon :icon="resultIcon" size="64" class="mb-4"></v-icon>
 					<div class="text-h4 font-weight-bold mb-2">{{ resultText }}</div>
 					<div class="text-body-1">{{ resultSubText }}</div>
@@ -29,7 +29,7 @@
 		</v-row>
 		<v-row class="grow" v-else-if="drug1 === drug2 && drug1">
 			<v-col cols="12" class="d-flex align-start justify-center">
-				<v-card class="pa-6 w-100 text-center rounded" color="grey" variant="tonal" elevation="0">
+				<v-card class="pa-6 w-100 text-center rounded" color="grey" variant="tonal">
 					<v-icon icon="mdi-information-outline" size="64" class="mb-4"></v-icon>
 					<div class="text-h5 font-weight-bold mb-2">Mesma Medicação</div>
 				</v-card>

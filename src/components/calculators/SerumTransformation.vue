@@ -32,7 +32,7 @@
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card color="primary-lighten-4" class="pa-6 text-center rounded" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded">
       <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Você deve adicionar</div>
       <div class="text-h3 font-weight-black text-primary-darken-2 my-2">
         {{ resultAmpoules }} ampolas

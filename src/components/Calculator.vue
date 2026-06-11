@@ -1,6 +1,6 @@
 <template>
   <v-layout class="rounded-0 overflow-hidden" style="height: 100dvh; width: 100vw;">
-    <v-app-bar color="primary" class="px-3" elevation="2">
+    <v-app-bar color="primary" class="px-3">
       <template v-slot:prepend>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </template>
@@ -20,36 +20,7 @@
           @update:model-value="onSearchSelect"></v-autocomplete>
       </div>
 
-      <v-list-item lines="two" prepend-icon="mdi-account-injury"
-        :title="hasPatientData ? (currentPatient.name || 'Paciente Atual') : 'Perfil do Paciente'"
-        class="mx-2 rounded mb-2" variant="tonal" @click="showPatientDialog = true">
-        <template v-slot:subtitle>
-          <div v-if="hasPatientData"
-            class="d-flex align-center mt-1 text-medium-emphasis text-caption font-weight-bold">
-            <span v-if="currentPatient.age" class="mr-3 d-flex align-center">
-              <v-icon icon="mdi-cake-variant" size="small" class="mr-1"></v-icon>
-              {{ currentPatient.age }}a
-            </span>
-            <span v-if="currentPatient.weight" class="mr-3 d-flex align-center">
-              <v-icon icon="mdi-weight-kilogram" size="small" class="mr-1"></v-icon>
-              {{ currentPatient.weight }}kg
-            </span>
-            <span v-if="currentPatient.height" class="d-flex align-center">
-              <v-icon icon="mdi-human-male-height" size="small" class="mr-1"></v-icon>
-              {{ currentPatient.height }}cm
-            </span>
-          </div>
-          <span v-else>Toque para definir Peso e Altura global...</span>
-        </template>
-      </v-list-item>
 
-      <div v-if="hasPatientData && currentPatient.fallRisk"
-        class="pa-2 ma-2 d-flex align-center bg-amber-lighten-4 text-amber-darken-4 text-body-medium border-warning rounded font-weight-bold">
-        <v-icon icon="mdi-alert" size="small" class="mr-1"></v-icon>
-        Paciente com Risco de Queda
-      </div>
-
-      <v-divider></v-divider>
 
       <v-list v-model:opened="openedGroups" nav density="compact">
         <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" :active="activeTab === 'dashboard'"
@@ -71,7 +42,7 @@
           @click="showDisclaimer = true"></v-list-item>
       </v-list>
 
-      <div class="mt-auto">
+      <template v-slot:append>
         <div class="pa-4 text-center">
           <div class="d-flex justify-center align-center ga-2 mb-1">
             <v-btn icon="mdi-linkedin" variant="text" size="small" color="primary"
@@ -85,7 +56,7 @@
             AJOTA &copy; {{ dayjs().format("YYYY") }}. All rights reserved.
           </div>
         </div>
-      </div>
+      </template>
     </v-navigation-drawer>
 
     <BaseDialog v-model="showDisclaimer" title="Aviso Legal" icon="mdi-shield-alert" max-width="480">
@@ -115,7 +86,7 @@
           desenvolvedor!
         </p>
 
-        <v-card variant="tonal" color="brown-lighten-4" class="mb-4 mt-6 rounded">
+        <v-card variant="tonal" color="brown-lighten-4" class="mb-4 mt-6" :border="false">
           <div class="text-caption text-brown-darken-4 font-weight-bold mb-1 pt-2">Chave PIX (Copia e Cola)</div>
           <div class="d-flex align-center bg-white rounded pa-2 border mx-2 mb-2">
             <div class="text-body-2 text-truncate grow" style="user-select: all;">
@@ -138,57 +109,55 @@
     <BaseDialog v-model="showPatientDialog" title="Gestão de Leitos" icon="mdi-bed" max-width="480">
       <v-card-text class="pa-4 bg-surface" style="max-height: 70vh; overflow-y: auto;">
         <!-- Formulário Novo Leito -->
-        <v-card class="mb-4 pa-4" elevation="0" border rounded="lg" color="surface-light">
-          <div class="text-subtitle-2 mb-3 text-primary font-weight-bold">Leito / Paciente</div>
-          <v-row density="comfortable">
-            <v-col cols="12">
-              <v-text-field v-model="newBed.name" label="Identificação (Ex: Leito 04)" variant="outlined"
-                density="compact" hide-details></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.age" label="Idade" suffix="a" variant="outlined" density="compact"
-                hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.weight" label="Peso" suffix="kg" variant="outlined" density="compact"
-                hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.height" label="Altura" suffix="cm" variant="outlined"
-                density="compact" hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <v-text-field v-model="newBed.pa" label="PA" placeholder="120x80" suffix="mmHg" variant="outlined"
-                density="compact" hide-details></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.fc" label="FC" suffix="bpm" variant="outlined" density="compact"
-                hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.fr" label="FR" suffix="irpm" variant="outlined" density="compact"
-                hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.temp" label="Tax" suffix="°C" variant="outlined" density="compact"
-                hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <NumericInput v-model.number="newBed.spO2" label="SpO2" suffix="%" variant="outlined" density="compact"
-                hide-details></NumericInput>
-            </v-col>
-            <v-col cols="12">
-              <v-switch v-model="newBed.fallRisk" color="warning" label="Risco de Queda" hide-details density="compact"
-                inset class="inset-switch" size="x-small"></v-switch>
-            </v-col>
-            <v-col cols="12" class="text-right">
-              <v-btn v-if="editBedId" color="grey" variant="text" @click="cancelEdit" class="mr-2">Cancelar</v-btn>
-              <v-btn color="primary" variant="flat" @click="saveNewBed" :disabled="!newBed.name">
-                {{ editBedId ? 'Salvar' : 'Adicionar' }}
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card>
+        <div class="text-subtitle-2 mb-3 text-primary font-weight-bold">Leito / Paciente</div>
+        <v-row density="comfortable">
+          <v-col cols="12">
+            <v-text-field v-model="newBed.name" label="Identificação (Ex: Leito 04)" variant="outlined"
+              density="compact" hide-details></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.age" label="Idade" suffix="a" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.weight" label="Peso" suffix="kg" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.height" label="Altura" suffix="cm" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field v-model="newBed.pa" label="PA" placeholder="120x80" suffix="mmHg" variant="outlined"
+              density="compact" hide-details></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.fc" label="FC" suffix="bpm" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.fr" label="FR" suffix="irpm" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.temp" label="Tax" suffix="°C" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <NumericInput v-model.number="newBed.spO2" label="SpO2" suffix="%" variant="outlined" density="compact"
+              hide-details></NumericInput>
+          </v-col>
+          <v-col cols="12">
+            <v-switch v-model="newBed.fallRisk" color="warning" label="Risco de Queda" hide-details density="compact"
+              inset class="inset-switch" size="x-small"></v-switch>
+          </v-col>
+          <v-col cols="12" class="text-right">
+            <v-btn v-if="editBedId" color="grey" variant="text" @click="cancelEdit" class="mr-2">Cancelar</v-btn>
+            <v-btn color="primary" variant="flat" @click="saveNewBed" :disabled="!newBed.name">
+              {{ editBedId ? 'Salvar' : 'Adicionar' }}
+            </v-btn>
+          </v-col>
+        </v-row>
 
         <!-- Lista de Leitos -->
         <div class="text-subtitle-2 mb-2 px-1 font-weight-bold">Leitos do Plantão</div>
@@ -246,7 +215,7 @@
       <v-card-text class="px-4 py-0" style="flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;">
         <v-window v-model="activeTab" :touch="false" style="overflow: visible;">
           <v-window-item value="dashboard">
-            <Dashboard @navigate="selectTab" />
+            <Dashboard @navigate="selectTab" @edit-patient="showPatientDialog = true" />
           </v-window-item>
 
           <v-window-item value="mav">
@@ -413,8 +382,6 @@ import ParklandFormula from "./calculators/ParklandFormula.vue";
 
 const { showSnackbar, snackbarText } = useAppClipboard();
 const {
-	currentPatient,
-	hasPatientData,
 	patientsList,
 	activePatientId,
 	addPatient,

@@ -34,7 +34,7 @@
 
     <v-row v-if="isValid">
       <v-col cols="12">
-        <v-card :color="apgarColor + '-lighten-4'" class="pa-4 text-center rounded" elevation="0">
+        <v-card :color="apgarColor + '-lighten-4'" class="pa-4 text-center rounded">
           <div :class="`text-subtitle-2 text-${apgarColor}-darken-2 text-uppercase`">Escore APGAR</div>
           <div :class="`text-h2 font-weight-black text-${apgarColor}-darken-3 my-2`">
             {{ totalScore }}

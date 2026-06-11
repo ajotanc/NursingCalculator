@@ -9,7 +9,7 @@
 
     <v-row>
       <v-col cols="12" sm="6" v-for="catheter in catheters" :key="catheter.gauge">
-        <v-card class="h-100" elevation="2">
+        <v-card class="h-100">
           <v-card-item>
             <template v-slot:title>
               <div class="d-flex align-center justify-space-between w-100 mb-2">
@@ -84,10 +84,12 @@
             </div>
 
             <div class="d-flex ga-2 mb-3 flex-wrap">
-              <v-chip size="small" variant="flat" :color="catheter.colorHex" class="text-caption font-weight-bold" :class="catheter.color === 'Amarelo' ? 'text-black' : 'text-white'">
+              <v-chip size="small" variant="flat" :color="catheter.colorHex" class="text-caption font-weight-bold"
+                :class="catheter.color === 'Amarelo' ? 'text-black' : 'text-white'">
                 <v-icon start size="small">mdi-ruler</v-icon> {{ catheter.needleLen }} mm
               </v-chip>
-              <v-chip size="small" variant="flat" :color="catheter.colorHex" class="text-caption font-weight-bold" :class="catheter.color === 'Amarelo' ? 'text-black' : 'text-white'">
+              <v-chip size="small" variant="flat" :color="catheter.colorHex" class="text-caption font-weight-bold"
+                :class="catheter.color === 'Amarelo' ? 'text-black' : 'text-white'">
                 <v-icon start size="small">mdi-water-sync</v-icon> ~{{ catheter.flow }} mL/min
               </v-chip>
             </div>

@@ -32,7 +32,7 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="primary-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="primary-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Macrogotas</div>
           <div class="text-h3 font-weight-black text-primary-darken-2 my-2">
             {{ dropsResult }}
@@ -41,7 +41,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
-        <v-card color="blue-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="blue-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-blue-darken-3 text-uppercase">Microgotas</div>
           <div class="text-h3 font-weight-black text-blue-darken-4 my-2">
             {{ microDropsResult }}

@@ -29,17 +29,8 @@ export const usePatient = () => {
 		const active = patientsList.value.find(
 			(p) => p.id === activePatientId.value,
 		);
-		// Return a default blank object if no patient is active
-		return (
-			active || {
-				id: "",
-				name: "",
-				weight: null,
-				height: null,
-				age: null,
-				fallRisk: false,
-			}
-		);
+
+		return active || {} as PatientProfile;
 	});
 
 	const formatPatientVitals = (patient: PatientProfile | null) => {
@@ -95,11 +86,105 @@ export const usePatient = () => {
 		activePatientId.value = id;
 	};
 
+	const vitaisFields = computed(() => [
+		{
+			key: "name",
+			label: "Nome",
+			icon: "mdi-account",
+			color: "primary",
+			value: currentPatient.value?.name,
+			unit: "",
+			hidden: true,
+		},
+		{
+			key: "age",
+			label: "Idade",
+			icon: "mdi-calendar-blank",
+			color: "blue",
+			value: currentPatient.value?.age,
+			unit: "anos",
+			hidden: false,
+		},
+		{
+			key: "weight",
+			label: "Peso",
+			icon: "mdi-scale",
+			color: "teal",
+			value: currentPatient.value?.weight,
+			unit: "kg",
+			hidden: false,
+		},
+		{
+			key: "height",
+			label: "Altura",
+			icon: "mdi-human-male-height",
+			color: "indigo",
+			value: currentPatient.value?.height,
+			unit: "cm",
+			hidden: false,
+		},
+		{
+			key: "fc",
+			label: "Freq. Cardíaca",
+			icon: "mdi-heart-pulse",
+			color: "red",
+			value: currentPatient.value?.fc,
+			unit: "bpm",
+			hidden: false,
+		},
+		{
+			key: "pa",
+			label: "P. Arterial",
+			icon: "mdi-gauge",
+			color: "orange",
+			value: currentPatient.value?.pa,
+			unit: "mmHg",
+			hidden: false,
+		},
+		{
+			key: "fr",
+			label: "Freq. Resp.",
+			icon: "mdi-lungs",
+			color: "cyan",
+			value: currentPatient.value?.fr,
+			unit: "irpm",
+			hidden: false,
+		},
+		{
+			key: "temp",
+			label: "Temperatura",
+			icon: "mdi-thermometer",
+			color: "deep-orange",
+			value: currentPatient.value?.temp,
+			unit: "°C",
+			hidden: false,
+		},
+		{
+			key: "spO2",
+			label: "SpO₂",
+			icon: "mdi-water-percent",
+			color: "light-blue",
+			value: currentPatient.value?.spO2,
+			unit: "%",
+			hidden: false,
+		},
+		{
+			key: "fallRisk",
+			label: "Risco Queda",
+			icon: "mdi-alert-octagon",
+			color: "amber",
+			value: currentPatient.value?.fallRisk,
+			unit: "",
+			hidden: true,
+		},
+	]);
+
 	return {
 		patientsList,
 		activePatientId,
 		currentPatient,
 		hasPatientData,
+		vitaisFields,
 		addPatient,
 		updatePatient,
 		deletePatient,

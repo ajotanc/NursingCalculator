@@ -15,6 +15,9 @@ import "vuetify/styles";
 export default createVuetify({
 	defaults: {
 		VCard: {
+			density: "compact",
+			border: true,
+			elevation: 0,
 			style: "border-color: rgba(var(--v-theme-on-surface), 0.38)",
 		},
 		VDialog: {
@@ -22,9 +25,12 @@ export default createVuetify({
 				rounded: "0",
 			},
 		},
+		VTimelineItem: {
+			width: "100%",
+		},
 	},
 	theme: {
-		defaultTheme: "dark",
+		defaultTheme: "light",
 		themes: {
 			dark: {
 				colors: {

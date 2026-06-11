@@ -22,7 +22,7 @@
 
     <v-row v-if="isValid">
       <v-col cols="12">
-        <v-card color="orange-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="orange-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-orange-darken-4 text-uppercase">Volume Total (24h)</div>
           <div class="text-h3 font-weight-black text-orange-darken-4 my-2">
             {{ totalVolume }} <span class="text-h5">mL</span>
@@ -31,7 +31,7 @@
       </v-col>
 
       <v-col cols="12" sm="6">
-        <v-card color="deep-orange-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="deep-orange-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-deep-orange-darken-4 text-uppercase">Primeiras 8 Horas</div>
           <div class="text-h5 font-weight-bold text-deep-orange-darken-4 my-2">
             {{ halfVolume }} mL
@@ -43,7 +43,7 @@
       </v-col>
 
       <v-col cols="12" sm="6">
-        <v-card color="yellow-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="yellow-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-yellow-darken-4 text-uppercase">Próximas 16 Horas</div>
           <div class="text-h5 font-weight-bold text-yellow-darken-4 my-2">
             {{ halfVolume }} mL

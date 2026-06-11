@@ -10,7 +10,7 @@
     <NumericInput v-model.number="hgt" label="Glicemia Capilar (HGT)" variant="outlined" suffix="mg/dL" min="0"
       hide-details="auto" class="mb-6"></NumericInput>
 
-    <v-card color="primary-lighten-4" class="pa-6 text-center rounded" elevation="0">
+    <v-card color="primary-lighten-4" class="pa-6 text-center rounded">
       <div class="text-subtitle-2 text-primary-darken-1 text-uppercase">Dose Indicada</div>
       <div class="text-h2 font-weight-black text-primary-darken-2 my-2">
         {{ insulinUnits }}

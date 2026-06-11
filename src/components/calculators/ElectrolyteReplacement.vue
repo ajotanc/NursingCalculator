@@ -22,7 +22,7 @@
 
     <v-row v-if="isValid && selectedAmpoule">
       <v-col cols="12">
-        <v-card color="indigo-lighten-4" class="pa-4 text-center rounded" elevation="0">
+        <v-card color="indigo-lighten-4" class="pa-4 text-center rounded">
           <div class="text-subtitle-2 text-indigo-darken-4 text-uppercase">Volume a Aspirar</div>
           <div class="text-h2 font-weight-black text-indigo-darken-4 my-2">
             {{ calculatedVolume }} <span class="text-h5">mL</span>

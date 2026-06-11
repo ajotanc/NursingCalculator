@@ -24,7 +24,7 @@
 
     <v-divider class="my-6"></v-divider>
 
-    <v-card :color="scoreColor" class="pa-6 text-center rounded" elevation="0" variant="tonal">
+    <v-card :color="scoreColor" class="pa-6 text-center rounded" variant="tonal">
       <div class="text-subtitle-2 text-uppercase">Pontuação Total</div>
       <div class="text-h2 font-weight-black my-2">
         {{ totalScore }}
